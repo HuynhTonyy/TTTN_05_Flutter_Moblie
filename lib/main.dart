@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Screens/homeScreen.dart';
-
+import 'Screens/predictionScreen.dart';
 void main() {
   runApp(MyApp());
 }
