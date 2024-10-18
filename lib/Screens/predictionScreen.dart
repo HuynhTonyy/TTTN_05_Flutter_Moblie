@@ -23,9 +23,9 @@ AnswerCard(question: "Where do you study at?", answer: "VLU", index: "12",),
                   child: Container(
                 color: const Color.fromARGB(82, 33, 149, 243),
                 child: Column(
-                  children: const <Widget>[
+                  children: <Widget>[
                     Spacer(),
-          MyTextField()
+                    MyTextField()
                   ],
                 ),
               ))
