@@ -1,13 +1,14 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'form/form_dialog_pass.dart';
+import '../Screens/Class/questions_data_class.dart'; // Ensure this path is correct
 
 void main() {
-  runApp(predictScreen());
+  runApp(PredictScreen());
 }
 
-class predictScreen extends StatelessWidget {
+class PredictScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,21 +26,25 @@ class QuestionListScreen extends StatefulWidget {
 }
 
 class _QuestionListScreenState extends State<QuestionListScreen> {
-  final List<String> questions = [
-    'Tại vì sao?',
-    'Tại vì ta?',
-    'Tại vì ta?',
-    'Tại vì ta?',
-    'Tại vì ta?',
-    'Tại vì ta?',
-    'Tại vì ta?',
-    'Tại vì ta?',
-    'Tại vì ta?',
-    'Hả'
-  ];
-
+  List<Question> questions = [];
   String _title = 'DỰ ĐOÁN KẾT QUẢ HỌC TẬP';
   final TextEditingController _titleController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    loadQuestions();
+  }
+
+  // Function to load and parse the JSON file
+  Future<void> loadQuestions() async {
+    final String response =
+        await rootBundle.loadString('assets/questions_data.json');
+    final List<dynamic> data = json.decode(response);
+    setState(() {
+      questions = data.map((item) => Question.fromJson(item)).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +52,14 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
       appBar: AppBar(
         title: Text(
           _title,
-          style: TextStyle(color: Color.fromARGB(221, 255, 255, 255),fontWeight:FontWeight.bold),
+          style: TextStyle(
+              color: Color.fromARGB(221, 255, 255, 255),
+              fontWeight: FontWeight.bold),
         ),
         actions: [
           IconButton(
             icon: Icon(Icons.edit, color: Colors.black87),
-            onPressed: () => _editTitle(),
+            onPressed: _editTitle,
           ),
         ],
         backgroundColor: Color.fromARGB(255, 218, 124, 16),
@@ -84,7 +91,8 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 0,bottom: 15,left: 10,right: 10),
+              padding: const EdgeInsets.only(
+                  top: 0, bottom: 15, left: 10, right: 10),
               child: SizedBox(
                 width: double.infinity,
                 height: 80,
@@ -122,7 +130,6 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
 
   void _editTitle() {
     _titleController.text = _title;
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -155,8 +162,7 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
 
 class QuestionItem extends StatelessWidget {
   final int index;
-  final String question;
-
+  final Question question;
   QuestionItem({required this.index, required this.question});
 
   @override
@@ -176,57 +182,61 @@ class QuestionItem extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Row(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: Colors.green[400],
-                borderRadius: BorderRadius.circular(12),
+            Text(
+              '$index. ${question.question}',
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
               ),
-              child: Center(
-                child: Text(
-                  '$index',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
+            ),
+            SizedBox(height: 16),
+            if (question.type == 'options') ...[
+              DropdownButtonFormField<String>(
+                hint: Text("Select an answer"),
+                items: question.options.entries.map((option) {
+                  return DropdownMenuItem<String>(
+                    value: option.key,
+                    child: Text('${option.value}'),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  // Handle the selected value
+                },
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey[100],
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
                   ),
                 ),
               ),
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    question,
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                    ),
+            ] else if (question.type == 'input') ...[
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "Enter your answer",
+                  filled: true,
+                  fillColor: Colors.grey[100],
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
                   ),
-                  SizedBox(height: 8),
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Nhập đáp án tại đây...',
-                      hintStyle: TextStyle(color: Colors.grey),
-                      filled: true,
-                      fillColor: Colors.grey[100],
-                      contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                ],
+                ),
+                keyboardType:
+                question.id != 0 ? TextInputType.number:TextInputType.name, // Adjust based on expected input
+                onChanged: (value) {
+                  // Handle the input value
+                },
               ),
-            ),
+            ],
           ],
         ),
       ),

@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: HomeScreen(),
       routes: {
-        '/screen2':(context) => predictScreen(),
+        '/screen2':(context) => PredictScreen(),
         '/homeScreen':(context) => HomeScreen(),
       },
     );
