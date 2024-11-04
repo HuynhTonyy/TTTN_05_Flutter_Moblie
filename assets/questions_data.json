@@ -1,0 +1,323 @@
+[
+  {
+    "id": 0,
+    "question": "Họ tên của bạn là gì?",
+    "type": "input",
+    "options": {}
+  },
+  {
+    "id": 1,
+    "question": "Học sinh học tại trường nào?",
+    "type": "options",
+    "options": {
+      "A": "Gabriel Pereira (GP)",
+      "B": "Mousinho da Silveira (MS)"
+    }
+  },
+  {
+    "id": 2,
+    "question": "Giới tính của học sinh là gì?",
+    "type": "options",
+    "options": {
+      "A": "Nữ (F)",
+      "B": "Nam (M)"
+    }
+  },
+  {
+    "id": 3,
+    "question": "Học sinh bao nhiêu tuổi?",
+    "type": "input",
+    "options": {}
+  },
+  {
+    "id": 4,
+    "question": "Học sinh sống ở khu vực nào?",
+    "type": "options",
+    "options": {
+      "A": "Thành thị (U)",
+      "B": "Nông thôn (R)"
+    }
+  },
+  {
+    "id": 5,
+    "question": "Gia đình học sinh có bao nhiêu thành viên?",
+    "type": "options",
+    "options": {
+      "A": "3 người trở xuống (LE3)",
+      "B": "Nhiều hơn 3 người (GT3)"
+    }
+  },
+  {
+    "id": 6,
+    "question": "Bố mẹ học sinh sống chung hay sống riêng?",
+    "type": "options",
+    "options": {
+      "A": "Sống chung (T)",
+      "B": "Sống riêng (A)"
+    }
+  },
+  {
+    "id": 7,
+    "question": "Mẹ của học sinh có trình độ học vấn nào?",
+    "type": "options",
+    "options": {
+      "A": "Không có học vấn (0)",
+      "B": "Tiểu học (1)",
+      "C": "Trung học cơ sở (2)",
+      "D": "Trung học phổ thông (3)",
+      "E": "Đại học (4)"
+    }
+  },
+  {
+    "id": 8,
+    "question": "Bố của học sinh có trình độ học vấn nào?",
+    "type": "options",
+    "options": {
+      "A": "Không có học vấn (0)",
+      "B": "Tiểu học (1)",
+      "C": "Trung học cơ sở (2)",
+      "D": "Trung học phổ thông (3)",
+      "E": "Đại học (4)"
+    }
+  },
+  {
+    "id": 9,
+    "question": "Mẹ của học sinh làm nghề gì?",
+    "type": "options",
+    "options": {
+      "A": "Giáo viên",
+      "B": "Y tế",
+      "C": "Công vụ",
+      "D": "Nội trợ",
+      "E": "Nghề khác"
+    }
+  },
+  {
+    "id": 10,
+    "question": "Bố của học sinh làm nghề gì?",
+    "type": "options",
+    "options": {
+      "A": "Giáo viên",
+      "B": "Y tế",
+      "C": "Công vụ",
+      "D": "Nội trợ",
+      "E": "Nghề khác"
+    }
+  },
+  {
+    "id": 11,
+    "question": "Tại sao học sinh chọn trường này?",
+    "type": "options",
+    "options": {
+      "A": "Gần nhà",
+      "B": "Uy tín của trường",
+      "C": "Sở thích khóa học",
+      "D": "Lý do khác"
+    }
+  },
+  {
+    "id": 12,
+    "question": "Ai là người giám hộ của học sinh?",
+    "type": "options",
+    "options": {
+      "A": "Mẹ",
+      "B": "Bố",
+      "C": "Người khác"
+    }
+  },
+  {
+    "id": 13,
+    "question": "Học sinh mất bao nhiêu thời gian để đến trường?",
+    "type": "options",
+    "options": {
+      "A": "Dưới 15 phút (1)",
+      "B": "15-30 phút (2)",
+      "C": "30 phút đến 1 giờ (3)",
+      "D": "Hơn 1 giờ (4)"
+    }
+  },
+  {
+    "id": 14,
+    "question": "Học sinh dành bao nhiêu thời gian học mỗi tuần?",
+    "type": "options",
+    "options": {
+      "A": "Dưới 2 giờ (1)",
+      "B": "2-5 giờ (2)",
+      "C": "5-10 giờ (3)",
+      "D": "Hơn 10 giờ (4)"
+    }
+  },
+  {
+    "id": 15,
+    "question": "Học sinh đã từng trượt bao nhiêu lần trước đây?",
+    "type": "options",
+    "options": {
+      "A": "0 lần",
+      "B": "1 lần",
+      "C": "2 lần",
+      "D": "3 lần trở lên"
+    }
+  },
+  {
+    "id": 16,
+    "question": "Học sinh có nhận hỗ trợ học thêm từ trường không?",
+    "type": "options",
+    "options": {
+      "A": "Có",
+      "B": "Không"
+    }
+  },
+  {
+    "id": 17,
+    "question": "Học sinh có nhận hỗ trợ học tập từ gia đình không?",
+    "type": "options",
+    "options": {
+      "A": "Có",
+      "B": "Không"
+    }
+  },
+  {
+    "id": 18,
+    "question": "Học sinh có học thêm các lớp trong môn học chính không?",
+    "type": "options",
+    "options": {
+      "A": "Có",
+      "B": "Không"
+    }
+  },
+  {
+    "id": 19,
+    "question": "Học sinh có tham gia các hoạt động ngoại khóa không?",
+    "type": "options",
+    "options": {
+      "A": "Có",
+      "B": "Không"
+    }
+  },
+  {
+    "id": 20,
+    "question": "Học sinh có từng học mẫu giáo không?",
+    "type": "options",
+    "options": {
+      "A": "Có",
+      "B": "Không"
+    }
+  },
+  {
+    "id": 21,
+    "question": "Học sinh có muốn học lên đại học không?",
+    "type": "options",
+    "options": {
+      "A": "Có",
+      "B": "Không"
+    }
+  },
+  {
+    "id": 22,
+    "question": "Học sinh có kết nối Internet tại nhà không?",
+    "type": "options",
+    "options": {
+      "A": "Có",
+      "B": "Không"
+    }
+  },
+  {
+    "id": 23,
+    "question": "Học sinh có đang trong một mối quan hệ tình cảm không?",
+    "type": "options",
+    "options": {
+      "A": "Có",
+      "B": "Không"
+    }
+  },
+  {
+    "id": 24,
+    "question": "Học sinh đánh giá mối quan hệ gia đình như thế nào?",
+    "type": "options",
+    "options": {
+      "A": "Rất tệ (1)",
+      "B": "Tệ (2)",
+      "C": "Trung bình (3)",
+      "D": "Tốt (4)",
+      "E": "Rất tốt (5)"
+    }
+  },
+  {
+    "id": 25,
+    "question": "Học sinh có bao nhiêu thời gian rảnh sau giờ học?",
+    "type": "options",
+    "options": {
+      "A": "Rất ít (1)",
+      "B": "Ít (2)",
+      "C": "Trung bình (3)",
+      "D": "Nhiều (4)",
+      "E": "Rất nhiều (5)"
+    }
+  },
+  {
+    "id": 26,
+    "question": "Học sinh đi chơi với bạn bè ở mức độ nào?",
+    "type": "options",
+    "options": {
+      "A": "Rất ít (1)",
+      "B": "Ít (2)",
+      "C": "Trung bình (3)",
+      "D": "Nhiều (4)",
+      "E": "Rất nhiều (5)"
+    }
+  },
+  {
+    "id": 27,
+    "question": "Học sinh tiêu thụ rượu như thế nào trong ngày làm việc?",
+    "type": "options",
+    "options": {
+      "A": "Rất ít (1)",
+      "B": "Ít (2)",
+      "C": "Trung bình (3)",
+      "D": "Nhiều (4)",
+      "E": "Rất nhiều (5)"
+    }
+  },
+  {
+    "id": 28,
+    "question": "Học sinh tiêu thụ rượu như thế nào vào cuối tuần?",
+    "type": "options",
+    "options": {
+      "A": "Rất ít (1)",
+      "B": "Ít (2)",
+      "C": "Trung bình (3)",
+      "D": "Nhiều (4)",
+      "E": "Rất nhiều (5)"
+    }
+  },
+  {
+    "id": 29,
+    "question": "Học sinh đánh giá tình trạng sức khỏe hiện tại như thế nào?",
+    "type": "options",
+    "options": {
+      "A": "Rất tệ (1)",
+      "B": "Tệ (2)",
+      "C": "Trung bình (3)",
+      "D": "Tốt (4)",
+      "E": "Rất tốt (5)"
+    }
+  },
+  {
+    "id": 30,
+    "question": "Học sinh đã nghỉ học bao nhiêu buổi?",
+    "type": "input",
+    "options": {}
+  },
+  {
+    "id": 31,
+    "question": "Điểm kỳ đầu tiên của học sinh là bao nhiêu?",
+    "type": "input",
+    "options": {}
+  },
+  {
+    "id": 32,
+    "question": "Điểm kỳ thứ hai của học sinh là bao nhiêu?",
+    "type": "input",
+    "options": {}
+  }
+]
