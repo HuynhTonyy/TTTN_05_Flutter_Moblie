@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tttn_05_flutter_mobile/Screens/predictionScreen.dart';
+import 'package:tttn_05_flutter_mobile/Screens/predictScreen.dart';
 import 'Screens/homeScreen.dart';
 // import 'Screens/predictionScreen.dart';
 void main() {
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: HomeScreen(),
       routes: {
-        '/predictionScreen':(context) => PredictionScreen(),
+        '/screen2':(context) => predictScreen(),
         '/homeScreen':(context) => HomeScreen(),
       },
     );

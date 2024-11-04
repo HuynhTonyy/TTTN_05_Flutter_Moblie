@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'predictionScreen.dart';
+import 'predictScreen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -185,7 +185,7 @@ class AddPredictionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/predictionScreen');
+        Navigator.pushNamed(context, '/screen2');
       },
       child: Card(
         color: Colors.grey.shade300,
