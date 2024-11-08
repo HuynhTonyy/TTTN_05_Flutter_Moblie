@@ -21,7 +21,7 @@ target_columns = [
 ]
 
 y = data_Train['G3']  # Target variable (final grade)
-X = data_Train.drop("G3", axis=1)
+X = data_Train.drop(["G3","Name"], axis=1)
 
 # Apply one-hot encoding to categorical variables
 X = pd.get_dummies(X, drop_first=False)
