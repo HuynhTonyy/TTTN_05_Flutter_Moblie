@@ -19,31 +19,29 @@ def predict():
     if data is None:
         return jsonify({"error": "No input data provided"}), 400
     try:
-        # # Convert the JSON input to a DataFrame
-        # input_df = pd.DataFrame([data])  # Assuming data is a dictionary with one record
+        # target_columns = [
+        #     "school_GP", "school_MS", "sex_F", "sex_M", "age", "address_R", "address_U",
+        #     "famsize_GT3", "famsize_LE3", "Pstatus_A", "Pstatus_T", "Medu", "Fedu", 
+        #     "Mjob_at_home", "Mjob_health", "Mjob_other", "Mjob_services", "Mjob_teacher",
+        #     "Fjob_at_home", "Fjob_health", "Fjob_other", "Fjob_services", "Fjob_teacher",
+        #     "reason_course", "reason_home", "reason_other", "reason_reputation",
+        #     "guardian_father", "guardian_mother", "guardian_other", "traveltime", 
+        #     "studytime", "failures", "schoolsup_yes", "schoolsup_no", "famsup_yes", 
+        #     "famsup_no", "paid_yes", "paid_no", "activities_yes", "activities_no", 
+        #     "nursery_yes", "nursery_no", "higher_yes", "higher_no", "internet_yes", 
+        #     "internet_no", "romantic_yes", "romantic_no", "famrel", "freetime", "goout", 
+        #     "Dalc", "Walc", "health", "absences", "G1", "G2"
+        # ]
+        
+        # # Ensure the new data only contains the target columns
+        # data = data[target_columns]
+        print(data)
 
-        # print(input_df)
-        # X_new = pd.get_dummies(input_df, drop_first=False)
-        # # Ensure the new data has the same columns as the training data
-        # # Get the missing columns (those that are in the model's feature names but not in X_new)
-        # missing_cols = set(model.feature_names_in_) - set(X_new.columns)
-
-        # # Add missing columns with default value 0
-        # for col in missing_cols:
-        #     X_new[col] = 0
-
-        # # Reorder columns to match the model's feature names
-        # X_new = X_new[model.feature_names_in_]
-
-        # # Convert boolean columns to integers for compatibility with the model (if needed)
-        # for column in X_new.select_dtypes(include=['bool']).columns:
-        #     X_new[column] = X_new[column].astype(int)
-
-        # Make predictions
+        # # Make predictions
         predictions = model.predict(data)
 
-        # Print predictions
-        print(predictions)
+        # # Print predictions
+        # print(predictions)
         
         # Return the prediction as a JSON response
         return jsonify({"prediction": predictions.tolist()})
