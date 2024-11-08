@@ -268,7 +268,7 @@
   },
   {
     "id": 27,
-    "question": "Học sinh tiêu thụ rượu như thế nào trong ngày làm việc?",
+    "question": "Trong một ngày học, học sinh tham gia vào các hoạt động thư giãn hay giải trí ở mức độ nào?",
     "type": "options",
     "options": {
       "A": "Rất ít (1)",
@@ -280,7 +280,7 @@
   },
   {
     "id": 28,
-    "question": "Học sinh tiêu thụ rượu như thế nào vào cuối tuần?",
+    "question": "Vào cuối tuần, học sinh tham gia vào các hoạt động thư giãn hay giải trí ở mức độ nào?",
     "type": "options",
     "options": {
       "A": "Rất ít (1)",
