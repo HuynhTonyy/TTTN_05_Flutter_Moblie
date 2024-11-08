@@ -58,8 +58,8 @@
     "question": "Bố mẹ học sinh sống chung hay sống riêng?",
     "type": "trueFalse",
     "options": {
-      "A": "Sống chung (T)",
-      "B": "Sống riêng (A)"
+      "Pstatus_T-1": "Sống chung (T)",
+      "Pstatus_T-0": "Sống riêng (A)"
     },
     "index": 19
   },
@@ -68,11 +68,11 @@
     "question": "Mẹ của học sinh có trình độ học vấn nào?",
     "type": "ruler",
     "options": {
-      "A": "Không có học vấn (0)",
-      "B": "Tiểu học (1)",
-      "C": "Trung học cơ sở (2)",
-      "D": "Trung học phổ thông (3)",
-      "E": "Đại học (4)"
+      "Medu-0": "Không có học vấn (0)",
+      "Medu-1": "Tiểu học (1)",
+      "Medu-2": "Trung học cơ sở (2)",
+      "Medu-3": "Trung học phổ thông (3)",
+      "Medu-4": "Đại học (4)"
     },
     "index": 1
   },
@@ -81,11 +81,11 @@
     "question": "Bố của học sinh có trình độ học vấn nào?",
     "type": "ruler",
     "options": {
-      "A": "Không có học vấn (0)",
-      "B": "Tiểu học (1)",
-      "C": "Trung học cơ sở (2)",
-      "D": "Trung học phổ thông (3)",
-      "E": "Đại học (4)"
+      "Fedu-0": "Không có học vấn (0)",
+      "Fedu-1": "Tiểu học (1)",
+      "Fedu-2": "Trung học cơ sở (2)",
+      "Fedu-3": "Trung học phổ thông (3)",
+      "Fedu-4": "Đại học (4)"
     },
     "index": 2
   },
