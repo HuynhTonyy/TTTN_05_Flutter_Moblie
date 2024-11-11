@@ -19,7 +19,7 @@ class FormFailDialog extends StatelessWidget {
           Text('Thông báo', style: TextStyle(fontWeight: FontWeight.w800)),
         ],
       ),
-      content: Text('Bạn được đánh giá FAIL với số điểm ' + g3.toString(),
+      content: Text('Rất tiếc bận đã FAIL.\nSố điểm ' + g3.toString()+"/20.",
           style: TextStyle(fontSize: 18)),
       actions: [
         TextButton(
