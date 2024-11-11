@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../homeScreen.dart';
+import 'package:tttn_05_flutter_mobile/Screens/menuScreen.dart';
 
 class FormFailDialog extends StatelessWidget {
   final int g3;
@@ -28,7 +28,7 @@ class FormFailDialog extends StatelessWidget {
              Future.delayed(Duration(seconds: 3), () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                  MaterialPageRoute(builder: (context) => MenuScreen()),
                 );
               });
 

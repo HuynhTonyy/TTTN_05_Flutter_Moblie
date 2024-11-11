@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../homeScreen.dart';
+import 'package:tttn_05_flutter_mobile/Screens/menuScreen.dart';
+
 
 class FormPassDialog extends StatelessWidget {
   final int g3;
@@ -25,7 +26,7 @@ class FormPassDialog extends StatelessWidget {
             Future.delayed(Duration(seconds: 3), () {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                        MaterialPageRoute(builder: (context) => MenuScreen()),
                       );
                     });
           },
