@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'form/form_dialog_pass.dart';
+import 'form/form_dialog_fail.dart';
 import '../Screens/Class/questions_data_class.dart'; // Ensure this path is correct
+import 'startScreen.dart';
 
 void main() {
   runApp(PredictScreen());
@@ -103,8 +105,10 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
                     );
                     showDialog(
                       context: context,
-                      builder: (context) => FormPassDialog(),
+                      builder: (context) => FormFailDialog(),
                     );
+                  
+                    
                   },
                   icon: Icon(Icons.check_circle, color: Colors.white),
                   label: Text(
