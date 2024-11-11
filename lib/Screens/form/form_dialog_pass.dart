@@ -16,7 +16,7 @@ class FormPassDialog extends StatelessWidget {
           Text('Thông báo', style: TextStyle(fontWeight: FontWeight.w800)),
         ],
       ),
-      content: Text('Bạn được đánh giá PASS với số điểm '+g3.toString(),
+      content: Text('Chúc mừng bạn đã PASS.\nSố điểm: '+g3.toString()+"/20.",
       style: TextStyle(fontSize: 18)
       ),
       actions: [

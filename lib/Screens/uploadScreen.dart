@@ -128,17 +128,21 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  List<Map<String, String>> dataOutput = [];
   void uploadCSV() async {
+    dataOutput = [];
     List<Map<String, dynamic>> formattedCSV = await pickCSVFile();
     List<dynamic> predictions = await predict(formattedCSV);
-    for (var element in predictions) {
-      print(element.toInt());
-      // int.parse(element.toString().split(".")[0].toString());
+    for (var i = 0; i < predictions.length; i++) {
+      Map<String, String> dataShow = {
+        "Name": csvData[i + 1][0],
+        "G3": predictions[i].toInt().toString()
+      };
+      dataOutput.add(dataShow);
+      if (i == 10) {
+        return;
+      }
     }
-
-    // setState(() {
-    //   output = prediction;
-    // });
   }
 
   Future<List<Map<String, dynamic>>> pickCSVFile() async {
@@ -307,7 +311,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 decoration: BoxDecoration(
                   color: Colors.grey[300],
                 ),
-                child: ScrollableTable()),
+                child: ScrollableTable(data: dataOutput)),
             ElevatedButton(
               onPressed: () => uploadCSV(),
               child: Text("Upload CSV"),
@@ -324,42 +328,72 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class ScrollableTable extends StatelessWidget {
-  final List<Map<String, String>> data = List.generate(
-    20,
-    (index) => {
-      'Column1': 'Row ${index + 1} - Column 1',
-      'Column2': 'Row ${index + 1} - Column 2',
-    },
-  );
+  final List<Map<String, String>> data;
+
+  ScrollableTable({required this.data});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: data.map((row) {
-          return Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    row['Column1'] ?? '',
-                    style: TextStyle(fontSize: 16),
+    return Container(
+      height: 300, // Set a fixed height for the table
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            // Header Row
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Name',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    row['Column2'] ?? '',
-                    style: TextStyle(fontSize: 16),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'G3',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          );
-        }).toList(),
+              ],
+            ),
+            // Data Rows
+            Column(
+              children: data.map((row) {
+                return Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          row['Name'] ?? '',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          row['G3'] ?? '',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }).toList(),
+            ),
+          ],
+        ),
       ),
     );
   }
