@@ -103,24 +103,33 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
     loadQuestions();
   }
 
-  Future<int> predict(List<Map<String, dynamic>> samples) async {
-    List<List<int>> formatedSamples = [];
-    for (var i = 0; i < samples.length; i++) {
-      Map<String, dynamic> sample = samples[i];
-      List<int> inputData = [
+  Future<int> predict(Map<String, dynamic> sample) async {
+    List<int> inputData = [
+        sample['age'] as int,
+        sample['Medu'] as int,
+        sample['Fedu'] as int,
+        sample['traveltime'] as int,
+        sample['studytime'] as int,
+        sample['failures'] as int,
+        sample['famrel'] as int,
+        sample['freetime'] as int,
+        sample['goout'] as int,
+        sample['Dalc'] as int,
+        sample['Walc'] as int,
+        sample['health'] as int,
+        sample['absences'] as int,
+        sample['G1'] as int,
+        sample['G2'] as int,
         sample['school_GP'] as int,
         sample['school_MS'] as int,
         sample['sex_F'] as int,
         sample['sex_M'] as int,
-        sample['age'] as int,
         sample['address_R'] as int,
         sample['address_U'] as int,
         sample['famsize_GT3'] as int,
         sample['famsize_LE3'] as int,
         sample['Pstatus_A'] as int,
         sample['Pstatus_T'] as int,
-        sample['Medu'] as int,
-        sample['Fedu'] as int,
         sample['Mjob_at_home'] as int,
         sample['Mjob_health'] as int,
         sample['Mjob_other'] as int,
@@ -138,56 +147,35 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
         sample['guardian_father'] as int,
         sample['guardian_mother'] as int,
         sample['guardian_other'] as int,
-        sample['traveltime'] as int,
-        sample['studytime'] as int,
-        sample['failures'] as int,
-        sample['schoolsup_yes'] as int,
         sample['schoolsup_no'] as int,
-        sample['famsup_yes'] as int,
+        sample['schoolsup_yes'] as int,
         sample['famsup_no'] as int,
-        sample['paid_yes'] as int,
+        sample['famsup_yes'] as int,
         sample['paid_no'] as int,
-        sample['activities_yes'] as int,
+        sample['paid_yes'] as int,
         sample['activities_no'] as int,
-        sample['nursery_yes'] as int,
+        sample['activities_yes'] as int,
         sample['nursery_no'] as int,
-        sample['higher_yes'] as int,
+        sample['nursery_yes'] as int,
         sample['higher_no'] as int,
-        sample['internet_yes'] as int,
+        sample['higher_yes'] as int,
         sample['internet_no'] as int,
-        sample['romantic_yes'] as int,
+        sample['internet_yes'] as int,
         sample['romantic_no'] as int,
-        sample['famrel'] as int,
-        sample['freetime'] as int,
-        sample['goout'] as int,
-        sample['Dalc'] as int,
-        sample['Walc'] as int,
-        sample['health'] as int,
-        sample['absences'] as int,
-        sample['G1'] as int,
-        sample['G2'] as int,
+        sample['romantic_yes'] as int,
       ];
-      formatedSamples.add(inputData);
-    }
-
-    // var outputs = List.filled(1, 0).reshape([1, 1]);
-    // final interpreter =
-    //     await Interpreter.fromAsset('assets/models/decision_tree_model.tflite');
-    // interpreter.run(inputData, outputs);
-
-    final baseUrl = Uri.parse('http://10.0.2.2:5000/predict');
     // Send POST request
     final response = await http.post(
-      baseUrl,
+      Uri.parse('http://10.0.2.2:5000/predict'),
       headers: {"Content-Type": "application/json"},
-      body: json.encode(formatedSamples),
+      body: json.encode([inputData]),
     );
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
       return int.parse(
-          responseData['prediction'][0].toString().substring(0, 1));
+          responseData['prediction'][0].toString().split(".")[0].toString());
     } else {
-      return -1;
+      return -999;
     }
   }
 
@@ -283,7 +271,7 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
                       );
                       return;
                     }
-                    int g3 = await predict([rearrangedSample]);
+                    int g3 = await predict(rearrangedSample);
                     if (g3 >= 10) {
                       showDialog(
                         context: context,

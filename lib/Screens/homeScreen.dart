@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'inputPredictScreen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
