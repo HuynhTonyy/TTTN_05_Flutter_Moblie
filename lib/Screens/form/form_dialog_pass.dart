@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '../homeScreen.dart';
 
 class FormPassDialog extends StatelessWidget {
+  final int g3;
+
+  FormPassDialog({required this.g3});
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -12,7 +15,7 @@ class FormPassDialog extends StatelessWidget {
           Text('Thông báo', style: TextStyle(fontWeight: FontWeight.w800)),
         ],
       ),
-      content: Text('Bạn được đánh giá PASS',
+      content: Text('Bạn được đánh giá PASS với số điểm '+g3.toString(),
       style: TextStyle(fontSize: 18)
       ),
       actions: [
