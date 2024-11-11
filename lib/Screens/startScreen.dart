@@ -28,13 +28,13 @@ class Startscreen extends StatelessWidget {
         ),
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween, // Căn đều khoảng cách giữa các phần tử
+            mainAxisAlignment: MainAxisAlignment.spaceBetween, 
             children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 80.0), // Padding trên cho logo
+                    padding: const EdgeInsets.only(top: 80.0),
                     child: Image.asset(
                       'assets/logo.png',
                       height: 170,
@@ -60,7 +60,7 @@ class Startscreen extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 20.0), // Padding cho khoảng cách bên dưới
+                padding: const EdgeInsets.only(bottom: 20.0),
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/homeScreen');
