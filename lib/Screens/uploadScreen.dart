@@ -45,8 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<List<dynamic>> csvData = [];
   final dio = Dio();
 
-
-  Future<String> predict(List<Map<String, dynamic>> samples) async {
+  Future<List<dynamic>> predict(List<Map<String, dynamic>> samples) async {
     List<List<int>> formatedSamples = [];
     for (var i = 0; i < samples.length; i++) {
       Map<String, dynamic> sample = samples[i];
@@ -123,18 +122,23 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
-      return responseData['prediction'].toString();
+      return responseData['prediction'];
     } else {
-      return 'Failed to get prediction. Error: ${response.statusCode}';
+      return [];
     }
   }
 
   void uploadCSV() async {
     List<Map<String, dynamic>> formattedCSV = await pickCSVFile();
-    String prediction = await predict(formattedCSV);
-    setState(() {
-      output = prediction;
-    });
+    List<dynamic> predictions = await predict(formattedCSV);
+    for (var element in predictions) {
+      print(element.toInt());
+      // int.parse(element.toString().split(".")[0].toString());
+    }
+
+    // setState(() {
+    //   output = prediction;
+    // });
   }
 
   Future<List<Map<String, dynamic>>> pickCSVFile() async {
@@ -224,6 +228,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     return formattedCSV;
   }
+
   Future<void> exportCsv(List<List<dynamic>> data) async {
     if (data == [] && !await _requestPermission()) {
       return;
@@ -244,14 +249,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     File file = File(filePath!);
     await file.writeAsString(newData);
-
-    // final String content = await file.readAsString();
-    // csvData = CsvToListConverter().convert(content) as String;
-    // // Format the CSV data to match rearrangedSample
-    // if (csvData.isNotEmpty) {
-    //   formattedCSV = getFormattedCSV(csvData as List<List>);
-    //   print(formattedCSV);
-    // }
   }
 
   Future<bool> _requestPermission() async {
@@ -303,20 +300,14 @@ class _MyHomePageState extends State<MyHomePage> {
               'Predict: G3',
             ),
             Container(
-              constraints: BoxConstraints(
-                maxHeight: 500,
-              ),
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-              ),
-              child: SingleChildScrollView(
-                child: Text(
-                  output,
-                  style: Theme.of(context).textTheme.headlineMedium,
+                constraints: BoxConstraints(
+                  maxHeight: 500,
                 ),
-              ),
-            ),
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                ),
+                child: ScrollableTable()),
             ElevatedButton(
               onPressed: () => uploadCSV(),
               child: Text("Upload CSV"),
@@ -327,6 +318,48 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ScrollableTable extends StatelessWidget {
+  final List<Map<String, String>> data = List.generate(
+    20,
+    (index) => {
+      'Column1': 'Row ${index + 1} - Column 1',
+      'Column2': 'Row ${index + 1} - Column 2',
+    },
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: data.map((row) {
+          return Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    row['Column1'] ?? '',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    row['Column2'] ?? '',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ),
+            ],
+          );
+        }).toList(),
       ),
     );
   }
