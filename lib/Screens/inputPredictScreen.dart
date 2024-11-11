@@ -7,10 +7,10 @@ import '../Screens/Class/questions_data_class.dart'; // Ensure this path is corr
 import 'startScreen.dart';
 
 void main() {
-  runApp(PredictScreen());
+  runApp(InputPredictScreen());
 }
 
-class PredictScreen extends StatelessWidget {
+class InputPredictScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -83,10 +83,10 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
                 padding: const EdgeInsets.all(15),
                 child: ListView.builder(
                   itemCount: questions.length,
-                  itemBuilder: (context, index) {
+                  itemBuilder: (context, id) {
                     return QuestionItem(
-                      index: index + 1,
-                      question: questions[index],
+                      index: id + 1,
+                      question: questions[id],
                     );
                   },
                 ),
@@ -163,11 +163,11 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
     );
   }
 }
-
 class QuestionItem extends StatelessWidget {
   final int index;
   final Question question;
   QuestionItem({required this.index, required this.question});
+  List<List<dynamic>> userInputData =[];
 
   @override
   Widget build(BuildContext context) {
@@ -205,6 +205,7 @@ class QuestionItem extends StatelessWidget {
                   return DropdownMenuItem<String>(
                     value: option.key,
                     child: Text('${option.value}'),
+                    
                   );
                 }).toList(),
                 onChanged: (value) {

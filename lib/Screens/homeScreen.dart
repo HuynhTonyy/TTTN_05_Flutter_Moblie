@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'predictScreen.dart';
+import 'inputPredictScreen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -74,24 +74,6 @@ class HomeBody extends StatelessWidget {
                 mainAxisSpacing: 15.0,
                 padding: EdgeInsets.all(15.0),
                 children: [
-                  PredictionCard(
-                    title: predictionTitle1,
-                    subtitle: predictionResult1,
-                    color: Colors.green,
-                    onTap: () {
-                      _showPopup(context, predictionTitle1, predictionResult1);
-                    },
-                    onRemove: () {},
-                  ),
-                  PredictionCard(
-                    title: predictionTitle2,
-                    subtitle: predictionResult2,
-                    color: Colors.red,
-                    onTap: () {
-                      _showPopup(context, predictionTitle2, predictionResult2);
-                    },
-                    onRemove: () {},
-                  ),
                   AddPredictionCard(),
                 ],
               ),
@@ -103,89 +85,12 @@ class HomeBody extends StatelessWidget {
   }
 }
 
-class PredictionCard extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final Color color;
-  final VoidCallback onTap;
-  final VoidCallback onRemove;
-
-  PredictionCard({
-    required this.title,
-    required this.subtitle,
-    required this.color,
-    required this.onTap,
-    required this.onRemove,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment:
-          Alignment.topRight,
-      children: [
-        InkWell(
-          onTap: onTap,
-          child: Card(
-            color: color,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            elevation: 10.0,
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Spacer(), // Space to push the subtitle down
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      subtitle,
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.white,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: -13, // Adjusts the vertical position of the button
-          right: -13, // Adjusts the horizontal position of the button
-          child: IconButton(
-            icon: Icon(Icons.remove_circle, color: Colors.white, size: 27),
-            onPressed: onRemove,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class AddPredictionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/screen2');
+        _showPopup(context, 'Chon cach nhap du lieu', "message");
       },
       child: Card(
         color: Colors.grey.shade300,
@@ -213,15 +118,15 @@ void _showPopup(BuildContext context, String predictionTitle, String message) {
         content: Text(message),
         actions: <Widget>[
           TextButton(
-            child: Text('Cancel'),
+            child: Text('Nhap tay'),
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.pushNamed(context, '/inputScreen');
             },
           ),
           TextButton(
-            child: Text('OK'),
+            child: Text('Dung file'),
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.pushNamed(context, '/uploadScreen');
             },
           ),
         ],
