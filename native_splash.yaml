@@ -1,0 +1,7 @@
+flutter_native_splash:
+  android: true
+  ios: false
+  web: false
+
+  color: "#f8ede4" # Background color of the splash screen
+  image: assets/app_logo.png # Path to your logo image
