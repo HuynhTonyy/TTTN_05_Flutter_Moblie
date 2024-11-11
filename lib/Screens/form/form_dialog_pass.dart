@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../homeScreen.dart';
 
 class FormPassDialog extends StatelessWidget {
   @override
@@ -17,8 +18,13 @@ class FormPassDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () {
-            // Đóng dialog
-            Navigator.of(context).pop();
+            
+            Future.delayed(Duration(seconds: 3), () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                      );
+                    });
           },
           child: Text('OK'),
         ),
