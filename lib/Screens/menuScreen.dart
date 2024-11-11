@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HomeAppBar(),
-      body: HomeBody(),
+      appBar: MenuAppBar(),
+      body: MenuBody(),
     );
   }
 }
 
-class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
+class MenuAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(150.0);
   @override
@@ -41,7 +41,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-class HomeBody extends StatelessWidget {
+class MenuBody extends StatelessWidget {
   String predictionTitle1 = 'Toan Thang 18/10/2024',
       predictionTitle2 = 'Dự đoán',
       predictionResult1 = 'Đậu',
