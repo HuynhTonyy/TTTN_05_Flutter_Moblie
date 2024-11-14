@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tttn_05_flutter_mobile/Screens/predictScreen.dart';
-import 'Screens/homeScreen.dart';
-// import 'Screens/predictionScreen.dart';
+import 'package:tttn_05_flutter_mobile/Screens/inputPredictScreen.dart';
+import 'package:tttn_05_flutter_mobile/Screens/menuScreen.dart';
+import 'package:tttn_05_flutter_mobile/Screens/startScreen.dart';
+import 'package:tttn_05_flutter_mobile/Screens/uploadScreen.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -10,12 +12,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
+      home: StartScreen(),
       routes: {
-        '/screen2':(context) => PredictScreen(),
-        '/homeScreen':(context) => HomeScreen(),
+        '/startScreen': (context) => StartScreen(),
+        '/menuScreen': (context) => MenuScreen(),
+        '/inputScreen': (context) => InputPredictScreen(),
+        '/uploadScreen': (context) => UploadScreen(),
       },
     );
   }
 }
-

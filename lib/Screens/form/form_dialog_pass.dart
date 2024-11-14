@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:tttn_05_flutter_mobile/Screens/menuScreen.dart';
+
 
 class FormPassDialog extends StatelessWidget {
+  final int g3;
+
+  FormPassDialog({required this.g3});
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -11,14 +16,19 @@ class FormPassDialog extends StatelessWidget {
           Text('Thông báo', style: TextStyle(fontWeight: FontWeight.w800)),
         ],
       ),
-      content: Text('Bạn được đánh giá PASS',
+      content: Text('Chúc mừng bạn đã PASS.\nSố điểm: '+g3.toString()+"/20.",
       style: TextStyle(fontSize: 18)
       ),
       actions: [
         TextButton(
           onPressed: () {
-            // Đóng dialog
-            Navigator.of(context).pop();
+            
+            Future.delayed(Duration(seconds: 3), () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => MenuScreen()),
+                      );
+                    });
           },
           child: Text('OK'),
         ),

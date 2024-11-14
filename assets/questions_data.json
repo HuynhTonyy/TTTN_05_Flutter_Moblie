@@ -1,323 +1,357 @@
-[
+
+  [
   {
     "id": 0,
     "question": "Họ tên của bạn là gì?",
     "type": "input",
-    "options": {}
+    "options": {},
+    "columns": ["Name"]
   },
   {
     "id": 1,
     "question": "Học sinh học tại trường nào?",
     "type": "options",
     "options": {
-      "A": "Gabriel Pereira (GP)",
-      "B": "Mousinho da Silveira (MS)"
-    }
+      "0-1": "Gabriel Pereira (GP)",
+      "1-0": "Mousinho da Silveira (MS)"
+    },
+    "columns": ["school_MS", "school_GP"]
   },
   {
     "id": 2,
     "question": "Giới tính của học sinh là gì?",
     "type": "options",
     "options": {
-      "A": "Nữ (F)",
-      "B": "Nam (M)"
-    }
+      "0-1": "Nữ (F)",
+      "1-0": "Nam (M)"
+    },
+    "columns": ["sex_M", "sex_F"]
   },
   {
     "id": 3,
     "question": "Học sinh bao nhiêu tuổi?",
     "type": "input",
-    "options": {}
+    "options": {},
+    "columns": ["age"]
   },
   {
     "id": 4,
     "question": "Học sinh sống ở khu vực nào?",
     "type": "options",
     "options": {
-      "A": "Thành thị (U)",
-      "B": "Nông thôn (R)"
-    }
+      "1-0": "Thành thị (U)",
+      "0-1": "Nông thôn (R)"
+    },
+    "columns": ["address_U", "address_R"]
   },
   {
     "id": 5,
     "question": "Gia đình học sinh có bao nhiêu thành viên?",
     "type": "options",
     "options": {
-      "A": "3 người trở xuống (LE3)",
-      "B": "Nhiều hơn 3 người (GT3)"
-    }
+      "1-0": "3 người trở xuống (LE3)",
+      "0-1": "Nhiều hơn 3 người (GT3)"
+    },
+    "columns": ["famsize_LE3", "famsize_GT3"]
   },
   {
     "id": 6,
     "question": "Bố mẹ học sinh sống chung hay sống riêng?",
     "type": "options",
     "options": {
-      "A": "Sống chung (T)",
-      "B": "Sống riêng (A)"
-    }
+      "1-0": "Sống chung (T)",
+      "0-1": "Sống riêng (A)"
+    },
+    "columns": ["Pstatus_T", "Pstatus_A"]
   },
   {
     "id": 7,
     "question": "Mẹ của học sinh có trình độ học vấn nào?",
-    "type": "options",
+    "type": "ruler",
     "options": {
-      "A": "Không có học vấn (0)",
-      "B": "Tiểu học (1)",
-      "C": "Trung học cơ sở (2)",
-      "D": "Trung học phổ thông (3)",
-      "E": "Đại học (4)"
-    }
+      "0": "Không có học vấn (0)",
+      "1": "Tiểu học (1)",
+      "2": "Trung học cơ sở (2)",
+      "3": "Trung học phổ thông (3)",
+      "4": "Đại học (4)"
+    },
+    "columns": ["Medu"]
   },
   {
     "id": 8,
     "question": "Bố của học sinh có trình độ học vấn nào?",
-    "type": "options",
+    "type": "ruler",
     "options": {
-      "A": "Không có học vấn (0)",
-      "B": "Tiểu học (1)",
-      "C": "Trung học cơ sở (2)",
-      "D": "Trung học phổ thông (3)",
-      "E": "Đại học (4)"
-    }
+      "0": "Không có học vấn (0)",
+      "1": "Tiểu học (1)",
+      "2": "Trung học cơ sở (2)",
+      "3": "Trung học phổ thông (3)",
+      "4": "Đại học (4)"
+    },
+    "columns": ["Fedu"]
   },
   {
     "id": 9,
     "question": "Mẹ của học sinh làm nghề gì?",
     "type": "options",
     "options": {
-      "A": "Giáo viên",
-      "B": "Y tế",
-      "C": "Công vụ",
-      "D": "Nội trợ",
-      "E": "Nghề khác"
-    }
+      "1-0-0-0-0": "Giáo viên",
+      "0-0-0-1-0": "Y tế",
+      "0-0-1-0-0": "Công vụ",
+      "0-0-0-0-1": "Nội trợ",
+      "0-1-0-0-0": "Nghề khác"
+    },
+    "columns": ["Mjob_teacher", "Mjob_other", "Mjob_services", "Mjob_health", "Mjob_at_home"]
   },
   {
     "id": 10,
     "question": "Bố của học sinh làm nghề gì?",
     "type": "options",
     "options": {
-      "A": "Giáo viên",
-      "B": "Y tế",
-      "C": "Công vụ",
-      "D": "Nội trợ",
-      "E": "Nghề khác"
-    }
+      "1-0-0-0-0": "Giáo viên",
+      "0-0-0-1-0": "Y tế",
+      "0-0-1-0-0": "Công vụ",
+      "0-0-0-0-1": "Nội trợ",
+      "0-1-0-0-0": "Nghề khác"
+    },
+    "columns": ["Fjob_teacher", "Fjob_other", "Fjob_services", "Fjob_health", "Fjob_at_home"]
   },
   {
     "id": 11,
     "question": "Tại sao học sinh chọn trường này?",
     "type": "options",
     "options": {
-      "A": "Gần nhà",
-      "B": "Uy tín của trường",
-      "C": "Sở thích khóa học",
-      "D": "Lý do khác"
-    }
+      "1-0-0-0": "Gần nhà",
+      "0-0-1-0": "Uy tín của trường",
+      "0-1-0-0": "Sở thích khóa học",
+      "0-0-0-1": "Lý do khác"
+    },
+    "columns": ["reason_home", "reason_course", "reason_reputation", "reason_other"]
   },
   {
     "id": 12,
     "question": "Ai là người giám hộ của học sinh?",
     "type": "options",
     "options": {
-      "A": "Mẹ",
-      "B": "Bố",
-      "C": "Người khác"
-    }
+      "1-0-0": "Mẹ",
+      "0-1-0": "Bố",
+      "0-0-1": "Người khác"
+    },
+    "columns": ["guardian_mother", "guardian_father", "guardian_other"]
   },
   {
     "id": 13,
     "question": "Học sinh mất bao nhiêu thời gian để đến trường?",
     "type": "options",
     "options": {
-      "A": "Dưới 15 phút (1)",
-      "B": "15-30 phút (2)",
-      "C": "30 phút đến 1 giờ (3)",
-      "D": "Hơn 1 giờ (4)"
-    }
+      "1": "Dưới 15 phút (1)",
+      "2": "15-30 phút (2)",
+      "3": "30-60 phút (3)",
+      "4": "Hơn 1 giờ (4)"
+    },
+    "columns": ["traveltime"]
   },
   {
     "id": 14,
     "question": "Học sinh dành bao nhiêu thời gian học mỗi tuần?",
     "type": "options",
     "options": {
-      "A": "Dưới 2 giờ (1)",
-      "B": "2-5 giờ (2)",
-      "C": "5-10 giờ (3)",
-      "D": "Hơn 10 giờ (4)"
-    }
+      "1": "Dưới 2 giờ (1)",
+      "2": "2-5 giờ (2)",
+      "3": "5-10 giờ (3)",
+      "4": "Hơn 10 giờ (4)"
+    },
+    "columns": ["studytime"]
   },
   {
     "id": 15,
     "question": "Học sinh đã từng trượt bao nhiêu lần trước đây?",
     "type": "options",
     "options": {
-      "A": "0 lần",
-      "B": "1 lần",
-      "C": "2 lần",
-      "D": "3 lần trở lên"
-    }
+      "0": "0 lần",
+      "1": "1 lần",
+      "2": "2 lần",
+      "3": "3 lần trở lên"
+    },
+    "columns": ["failures"]
   },
   {
     "id": 16,
     "question": "Học sinh có nhận hỗ trợ học thêm từ trường không?",
     "type": "options",
     "options": {
-      "A": "Có",
-      "B": "Không"
-    }
+      "1-0": "Có",
+      "0-1": "Không"
+    },
+    "columns": ["schoolsup_yes","schoolsup_no"]
   },
   {
     "id": 17,
     "question": "Học sinh có nhận hỗ trợ học tập từ gia đình không?",
     "type": "options",
     "options": {
-      "A": "Có",
-      "B": "Không"
-    }
+      "1-0": "Có",
+      "0-1": "Không"
+    },
+    "columns": ["famsup_yes","famsup_no"]
   },
   {
     "id": 18,
     "question": "Học sinh có học thêm các lớp trong môn học chính không?",
     "type": "options",
     "options": {
-      "A": "Có",
-      "B": "Không"
-    }
+      "1-0": "Có",
+      "0-1": "Không"
+    },
+    "columns": ["paid_yes","paid_no"]
   },
   {
     "id": 19,
     "question": "Học sinh có tham gia các hoạt động ngoại khóa không?",
     "type": "options",
     "options": {
-      "A": "Có",
-      "B": "Không"
-    }
+      "1-0": "Có",
+      "0-1": "Không"
+    },
+    "columns": ["activities_yes","activities_no"]
   },
   {
     "id": 20,
     "question": "Học sinh có từng học mẫu giáo không?",
     "type": "options",
     "options": {
-      "A": "Có",
-      "B": "Không"
-    }
+      "1-0": "Có",
+      "0-1": "Không"
+    },
+    "columns": ["nursery_yes","nursery_no"]
   },
   {
     "id": 21,
     "question": "Học sinh có muốn học lên đại học không?",
     "type": "options",
     "options": {
-      "A": "Có",
-      "B": "Không"
-    }
+      "1-0": "Có",
+      "0-1": "Không"
+    },
+    "columns": ["higher_yes","higher_no"]
   },
   {
     "id": 22,
     "question": "Học sinh có kết nối Internet tại nhà không?",
     "type": "options",
     "options": {
-      "A": "Có",
-      "B": "Không"
-    }
+      "1-0": "Có",
+      "0-1": "Không"
+    },
+    "columns": ["internet_yes","internet_no"]
   },
   {
     "id": 23,
     "question": "Học sinh có đang trong một mối quan hệ tình cảm không?",
     "type": "options",
     "options": {
-      "A": "Có",
-      "B": "Không"
-    }
+      "1-0": "Có",
+      "0-1": "Không"
+    },
+    "columns": ["romantic_yes","romantic_no"]
   },
   {
     "id": 24,
     "question": "Học sinh đánh giá mối quan hệ gia đình như thế nào?",
     "type": "options",
     "options": {
-      "A": "Rất tệ (1)",
-      "B": "Tệ (2)",
-      "C": "Trung bình (3)",
-      "D": "Tốt (4)",
-      "E": "Rất tốt (5)"
-    }
+      "1": "Rất tệ (1)",
+      "2": "Tệ (2)",
+      "3": "Trung bình (3)",
+      "4": "Tốt (4)",
+      "5": "Rất tốt (5)"
+    },
+    "columns": ["famrel"]
   },
   {
     "id": 25,
     "question": "Học sinh có bao nhiêu thời gian rảnh sau giờ học?",
     "type": "options",
     "options": {
-      "A": "Rất ít (1)",
-      "B": "Ít (2)",
-      "C": "Trung bình (3)",
-      "D": "Nhiều (4)",
-      "E": "Rất nhiều (5)"
-    }
+      "1": "Rất ít (1)",
+      "2": "Ít (2)",
+      "3": "Trung bình (3)",
+      "4": "Nhiều (4)",
+      "5": "Rất nhiều (5)"
+    },
+    "columns": ["freetime"]
   },
   {
     "id": 26,
     "question": "Học sinh đi chơi với bạn bè ở mức độ nào?",
     "type": "options",
     "options": {
-      "A": "Rất ít (1)",
-      "B": "Ít (2)",
-      "C": "Trung bình (3)",
-      "D": "Nhiều (4)",
-      "E": "Rất nhiều (5)"
-    }
+      "1": "Rất ít (1)",
+      "2": "Ít (2)",
+      "3": "Trung bình (3)",
+      "4": "Nhiều (4)",
+      "5": "Rất nhiều (5)"
+    },
+    "columns": ["goout"]
   },
   {
     "id": 27,
     "question": "Trong một ngày học, học sinh tham gia vào các hoạt động thư giãn hay giải trí ở mức độ nào?",
     "type": "options",
     "options": {
-      "A": "Rất ít (1)",
-      "B": "Ít (2)",
-      "C": "Trung bình (3)",
-      "D": "Nhiều (4)",
-      "E": "Rất nhiều (5)"
-    }
+      "1": "Rất ít (1)",
+      "2": "Ít (2)",
+      "3": "Trung bình (3)",
+      "4": "Nhiều (4)",
+      "5": "Rất nhiều (5)"
+    },
+    "columns": ["Dalc"]
   },
   {
     "id": 28,
     "question": "Vào cuối tuần, học sinh tham gia vào các hoạt động thư giãn hay giải trí ở mức độ nào?",
     "type": "options",
     "options": {
-      "A": "Rất ít (1)",
-      "B": "Ít (2)",
-      "C": "Trung bình (3)",
-      "D": "Nhiều (4)",
-      "E": "Rất nhiều (5)"
-    }
+      "1": "Rất ít (1)",
+      "2": "Ít (2)",
+      "3": "Trung bình (3)",
+      "4": "Nhiều (4)",
+      "5": "Rất nhiều (5)"
+    },
+    "columns": ["Walc"]
   },
   {
     "id": 29,
     "question": "Học sinh đánh giá tình trạng sức khỏe hiện tại như thế nào?",
     "type": "options",
     "options": {
-      "A": "Rất tệ (1)",
-      "B": "Tệ (2)",
-      "C": "Trung bình (3)",
-      "D": "Tốt (4)",
-      "E": "Rất tốt (5)"
-    }
+      "1": "Rất tệ (1)",
+      "2": "Tệ (2)",
+      "3": "Trung bình (3)",
+      "4": "Tốt (4)",
+      "5": "Rất tốt (5)"
+    },
+    "columns": ["health"]
   },
   {
     "id": 30,
     "question": "Học sinh đã nghỉ học bao nhiêu buổi?",
     "type": "input",
-    "options": {}
+    "options": {},
+    "columns": ["absences"]
   },
   {
     "id": 31,
     "question": "Điểm kỳ đầu tiên của học sinh là bao nhiêu?",
     "type": "input",
-    "options": {}
+    "options": {},
+    "columns": ["G1"]
   },
   {
     "id": 32,
     "question": "Điểm kỳ thứ hai của học sinh là bao nhiêu?",
     "type": "input",
-    "options": {}
+    "options": {},
+    "columns": ["G2"]
   }
 ]
