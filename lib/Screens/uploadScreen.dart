@@ -40,7 +40,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String output = "";
   List<Map<String, dynamic>> formattedCSV = [];
   List<List<dynamic>> csvData = [];
   final dio = Dio();
@@ -139,10 +138,10 @@ class _MyHomePageState extends State<MyHomePage> {
         "G3": predictions[i].toInt().toString()
       };
       dataOutput.add(dataShow);
-      if (i == 10) {
-        return;
-      }
     }
+    setState(() {
+      dataOutput;
+    });
   }
 
   Future<List<Map<String, dynamic>>> pickCSVFile() async {
@@ -233,26 +232,26 @@ class _MyHomePageState extends State<MyHomePage> {
     return formattedCSV;
   }
 
-  Future<void> exportCsv(List<List<dynamic>> data) async {
+  Future<void> downloadCSV(List<List<dynamic>> data) async {
     if (data == [] && !await _requestPermission()) {
       return;
     }
-    //them g3 vao data
-    List<dynamic> g3 = output.split("\n");
     data[0].add("New - G3");
     for (var i = 1; i < data.length - 1; i++) {
-      data[i].add(g3[i]);
+      // Co the miss data cot cuoi
+      data[i].add(dataOutput[i - 1].values.toList()[1]);
     }
-    var newData = const ListToCsvConverter().convert(data);
+    var newData = await ListToCsvConverter().convert(data);
+    print(newData);// data de luu da chuan bi xong
 
-    // Write the CSV data to the file
-    String? filePath = await FilePicker.platform.saveFile(
-      fileName: 'exported_file.csv',
-      type: FileType.custom,
-      allowedExtensions: ['csv'],
-    );
-    File file = File(filePath!);
-    await file.writeAsString(newData);
+    // String? filePath = await FilePicker.platform.saveFile(//Khi tao file bi loi 
+    //   fileName: 'exported_filel.csv',
+    //   type: FileType.custom,
+    //   allowedExtensions: ['csv'],
+    // );
+    // print(filePath);
+    // File file = File(filePath.toString());
+    // await file.writeAsString(newData);
   }
 
   Future<bool> _requestPermission() async {
@@ -300,9 +299,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'Predict: G3',
-            ),
             Container(
                 constraints: BoxConstraints(
                   maxHeight: 500,
@@ -312,14 +308,22 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Colors.grey[300],
                 ),
                 child: ScrollableTable(data: dataOutput)),
-            ElevatedButton(
-              onPressed: () => uploadCSV(),
-              child: Text("Upload CSV"),
-            ),
-            ElevatedButton(
-              onPressed: () => exportCsv(csvData),
-              child: Text("Download CSV"),
-            ),
+            Expanded(
+                child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => uploadCSV(),
+                    child: Text("Upload CSV"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => downloadCSV(csvData),
+                    child: Text("Download CSV"),
+                  ),
+                ],
+              ),
+            ))
           ],
         ),
       ),
@@ -335,65 +339,65 @@ class ScrollableTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300, // Set a fixed height for the table
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: [
-            // Header Row
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Name',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
+      height: 1000, // Set a fixed height for the table
+      child: Column(
+        children: [
+          // Header Row (will stay fixed at the top)
+          Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Name',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'G3',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'G3',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
-              ],
-            ),
-            // Data Rows
-            Column(
-              children: data.map((row) {
-                return Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          row['Name'] ?? '',
-                          style: TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
+          // Scrollable Data Rows
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: data.map((row) {
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            row['Name'] ?? '',
+                            style: TextStyle(fontSize: 16),
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          row['G3'] ?? '',
-                          style: TextStyle(fontSize: 16),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            row['G3'] ?? '',
+                            style: TextStyle(fontSize: 16),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                );
-              }).toList(),
+                    ],
+                  );
+                }).toList(),
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
