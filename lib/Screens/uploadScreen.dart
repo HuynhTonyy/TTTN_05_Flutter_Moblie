@@ -2,13 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:csv/csv.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:dio/dio.dart';
 
@@ -233,98 +229,213 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> downloadCSV(List<List<dynamic>> data) async {
-    if (data == [] && !await _requestPermission()) {
+    if (data.isEmpty && !await _requestPermission()) {
+      _showWarning("You must upload a file first !");
       return;
     }
+
+    String? fileName = await showFileNameDialog(context);
+    if (fileName == null || fileName.isEmpty) {
+      _showWarning("Remember to name a file before download !");
+      return;
+    }
+    // print(fileName);
+
     data[0].add("New - G3");
     for (var i = 1; i < data.length - 1; i++) {
       // Co the miss data cot cuoi
       data[i].add(dataOutput[i - 1].values.toList()[1]);
     }
     var newData = await ListToCsvConverter().convert(data);
-    print(newData);// data de luu da chuan bi xong
+    // print(newData); // data de luu da chuan bi xong
 
-    // String? filePath = await FilePicker.platform.saveFile(//Khi tao file bi loi 
-    //   fileName: 'exported_filel.csv',
-    //   type: FileType.custom,
-    //   allowedExtensions: ['csv'],
-    // );
-    // print(filePath);
-    // File file = File(filePath.toString());
-    // await file.writeAsString(newData);
+    // Define the Downloads directory path for public access
+    String downloadsPath = '/storage/emulated/0/Download';
+    String filePath = '$downloadsPath/$fileName.csv';
+
+    // Write to the file
+    File file = File(filePath);
+    await file.writeAsString(newData);
+
+    print("CSV file saved at: $filePath");
+    if (await file.exists()) {
+      _showWarning("File successfully saved!");
+    } else {
+      _showWarning("File saving failed.");
+    }
+  }
+
+  Future<String?> showFileNameDialog(BuildContext context) async {
+    TextEditingController fileNameController = TextEditingController();
+
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0), // Rounded corners
+          ),
+          title: Text(
+            "Enter file name",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Colors.blueAccent,
+            ),
+          ),
+          content: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: TextField(
+              controller: fileNameController,
+              autofocus: true, // Focus on the text field automatically
+              decoration: InputDecoration(
+                hintText: "Enter name for CSV file",
+                hintStyle: TextStyle(color: Colors.grey),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                  borderSide: BorderSide(color: Colors.blueAccent, width: 1.5),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                  borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
+                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.redAccent,
+                padding: EdgeInsets.symmetric(
+                    horizontal: 20, vertical: 12), // Button padding
+                textStyle: TextStyle(fontSize: 16),
+              ),
+              child: Text(
+                "Cancel",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(fileNameController.text); // Return the entered name
+              },
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.greenAccent,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                textStyle: TextStyle(fontSize: 16),
+              ),
+              child: Text(
+                "Save",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showWarning(String message) {
+    // Show warning as a SnackBar
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: Duration(seconds: 3),
+      ),
+    );
   }
 
   Future<bool> _requestPermission() async {
-    // Check the current status of the permission
+    // Request permission for external storage access
     var status = await Permission.storage.status;
-    await Permission.storage.request();
-    if (status.isGranted) {
-      // Permission is already granted
-      print("Storage permission already granted");
-      return true;
-    } else if (status.isDenied) {
-      // Request the permission
+    if (!status.isGranted) {
       var result = await Permission.storage.request();
-      if (result.isGranted) {
-        // Permission granted
-        print("Storage permission granted");
-      } else if (result.isPermanentlyDenied) {
-        // The user has permanently denied the permission
-        print(
-            "Storage permission permanently denied. Please enable it in settings.");
-        // Optionally, open app settings
-        openAppSettings();
-      } else {
-        // Handle other cases
-        print(result);
-        print("Storage permission denied");
+      if (!result.isGranted) {
+        if (result.isPermanentlyDenied) {
+          openAppSettings(); // Prompt user to change settings if permanently denied
+        }
+        return false;
       }
-    } else if (status.isPermanentlyDenied) {
-      // The user has permanently denied the permission
-      print(
-          "Storage permission permanently denied. Please enable it in settings.");
-      openAppSettings();
     }
-    return false;
+    return true;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        backgroundColor: Colors.blueAccent,
+        title:
+            Text(widget.title, style: TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: true,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-                constraints: BoxConstraints(
-                  maxHeight: 500,
-                ),
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                ),
-                child: ScrollableTable(data: dataOutput)),
-            Expanded(
-                child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () => uploadCSV(),
-                    child: Text("Upload CSV"),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                // Scrollable Table Container
+                Container(
+                  constraints: BoxConstraints(
+                      maxHeight: 500), // Set a max height for the table
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        offset: Offset(0, 4),
+                        blurRadius: 6,
+                      ),
+                    ],
                   ),
-                  ElevatedButton(
-                    onPressed: () => downloadCSV(csvData),
-                    child: Text("Download CSV"),
-                  ),
-                ],
-              ),
-            ))
-          ],
+                  child: ScrollableTable(data: dataOutput), // Display data
+                ),
+
+                // Spacing between table and buttons
+                SizedBox(height: 20),
+
+                // Buttons for Upload and Download
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () => uploadCSV(),
+                      style: ElevatedButton.styleFrom(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                        backgroundColor: Colors.blueAccent,
+                      ),
+                      child: Text("Upload CSV", style: TextStyle(fontSize: 16)),
+                    ),
+                    SizedBox(height: 10), // Space between buttons
+                    ElevatedButton(
+                      onPressed: () => downloadCSV(csvData),
+                      style: ElevatedButton.styleFrom(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                        backgroundColor: Colors.greenAccent,
+                      ),
+                      child:
+                          Text("Download CSV", style: TextStyle(fontSize: 16)),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -338,66 +449,94 @@ class ScrollableTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 1000, // Set a fixed height for the table
-      child: Column(
-        children: [
-          // Header Row (will stay fixed at the top)
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Name',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ),
+    return Column(
+      children: [
+        Row(
+          children: [
+            _buildTableHeader('Name'),
+            _buildTableHeader('G3'),
+          ],
+        ),
+        if (data.isEmpty)
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                'No data yet',
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey,
+                    fontStyle: FontStyle.italic),
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'G3',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          // Scrollable Data Rows
+            ),
+          )
+        else
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
                 children: data.map((row) {
-                  return Row(
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            row['Name'] ?? '',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            row['G3'] ?? '',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
+                  return _buildDataRow(row);
                 }).toList(),
               ),
             ),
           ),
-        ],
+      ],
+    );
+  }
+
+  Widget _buildTableHeader(String label) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Container(
+          alignment: Alignment.center,
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDataRow(Map<String, String> row) {
+    return Row(
+      children: [
+        _buildDataCell(row['Name'] ?? ''),
+        _buildDataCell(row['G3'] ?? ''),
+      ],
+    );
+  }
+
+  Widget _buildDataCell(String value) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          decoration: BoxDecoration(
+            color: Colors.blueGrey[50],
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                offset: Offset(0, 1),
+                blurRadius: 2,
+              ),
+            ],
+          ),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 16, color: Colors.black87),
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
     );
   }
