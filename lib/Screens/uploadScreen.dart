@@ -322,7 +322,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(fileNameController.text); // Return the entered name
+                Navigator.of(context)
+                    .pop(fileNameController.text); // Return the entered name
               },
               style: TextButton.styleFrom(
                 foregroundColor: Colors.greenAccent,
@@ -449,12 +450,20 @@ class ScrollableTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    final noColumnWidth = screenWidth * 0.15;
+    final nameColumnWidth = screenWidth * 0.55;
+    final g3ColumnWidth = screenWidth * 0.15;
+
     return Column(
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildTableHeader('Name'),
-            _buildTableHeader('G3'),
+            _buildTableHeader('No.', width: noColumnWidth),
+            _buildTableHeader('Name', width: nameColumnWidth),
+            _buildTableHeader('G3', width: g3ColumnWidth),
           ],
         ),
         if (data.isEmpty)
@@ -464,9 +473,10 @@ class ScrollableTable extends StatelessWidget {
               child: Text(
                 'No data yet',
                 style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.grey,
-                    fontStyle: FontStyle.italic),
+                  fontSize: 18,
+                  color: Colors.grey,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ),
           )
@@ -475,8 +485,11 @@ class ScrollableTable extends StatelessWidget {
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
-                children: data.map((row) {
-                  return _buildDataRow(row);
+                children: data.asMap().entries.map((entry) {
+                  int no = entry.key + 1;
+                  var row = entry.value;
+                  return _buildDataRow(
+                      row, no, noColumnWidth, nameColumnWidth, g3ColumnWidth);
                 }).toList(),
               ),
             ),
@@ -485,8 +498,9 @@ class ScrollableTable extends StatelessWidget {
     );
   }
 
-  Widget _buildTableHeader(String label) {
-    return Expanded(
+  Widget _buildTableHeader(String label, {required double width}) {
+    return SizedBox(
+      width: width,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Container(
@@ -505,17 +519,21 @@ class ScrollableTable extends StatelessWidget {
     );
   }
 
-  Widget _buildDataRow(Map<String, String> row) {
+  Widget _buildDataRow(Map<String, String> row, int no, double noWidth,
+      double nameWidth, double g3Width) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _buildDataCell(row['Name'] ?? ''),
-        _buildDataCell(row['G3'] ?? ''),
+        _buildDataCell(no, width: noWidth),
+        _buildDataCell(row['Name'] ?? '', width: nameWidth),
+        _buildDataCell(row['G3'] ?? '', width: g3Width),
       ],
     );
   }
 
-  Widget _buildDataCell(String value) {
-    return Expanded(
+  Widget _buildDataCell(dynamic value, {required double width}) {
+    return SizedBox(
+      width: width,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
         child: Container(
@@ -532,7 +550,7 @@ class ScrollableTable extends StatelessWidget {
             ],
           ),
           child: Text(
-            value,
+            value.toString(),
             style: TextStyle(fontSize: 16, color: Colors.black87),
             textAlign: TextAlign.center,
           ),
