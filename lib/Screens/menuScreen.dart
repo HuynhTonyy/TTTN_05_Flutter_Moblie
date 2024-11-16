@@ -1,135 +1,162 @@
 import 'package:flutter/material.dart';
 
-class MenuScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MenuAppBar(),
-      body: MenuBody(),
-    );
-  }
+void main() {
+  runApp(Menuscreen());
 }
 
-class MenuAppBar extends StatelessWidget implements PreferredSizeWidget {
-  @override
-  Size get preferredSize => Size.fromHeight(150.0);
+class Menuscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      flexibleSpace: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.orange.shade200, Colors.blue.shade200],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: Align(
-          alignment: Alignment(
-              0, 0.25), // Change the vertical alignment to lower the text
-          child: Text(
-            'DỰ ĐOÁN KẾT QUẢ HỌC TẬP',
-            style: TextStyle(
-              fontSize: 27,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-        ),
+    return MaterialApp(
+      home: Scaffold(
+        body: Menu(),
       ),
     );
   }
 }
 
-class MenuBody extends StatelessWidget {
-  String predictionTitle1 = 'Toan Thang 18/10/2024',
-      predictionTitle2 = 'Dự đoán',
-      predictionResult1 = 'Đậu',
-      predictionResult2 = 'Rớt';
-
+class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [Colors.orange.shade200, Colors.blue.shade200],
-          begin: Alignment.topLeft,
-          end: Alignment.topRight,
+            begin: Alignment.topLeft,
+            end: Alignment.topRight,
         ),
       ),
-      child: Column(
-        children: [
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(23.0),
+      child: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Image.asset(
+                'assets/logo.png',
+                width: 170,
+                height: 170,
+              ),
+              SizedBox(height: 5),
+              Text(
+                'AI',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueAccent,
+                  fontFamily: 'Roboto', 
+                  decoration: TextDecoration.none,
                 ),
               ),
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 15.0,
-                mainAxisSpacing: 15.0,
-                padding: EdgeInsets.all(15.0),
+
+              SizedBox(height: 70),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  AddPredictionCard(),
+                  CustomButton(
+                    text: 'DỰ ĐOÁN\nKẾT QUẢ HỌC TẬP',
+                    onPressed: () {
+                      _showOptionsBottomSheet(context);
+                    },
+                    backgroundColor: const Color.fromRGBO(66, 66, 66, 1),
+                  ),
+                  CustomButton(
+                    text: 'DỰ ĐOÁN MỚI\n(ĐANG PHÁT TRIỂN..)',
+                    onPressed: () {
+                      print('Dự đoán hình ảnh X-Quang');
+                    },
+                    backgroundColor: const Color.fromARGB(255, 209, 209, 209),
+                  ),
+                  CustomButton(
+                    text: 'DỰ ĐOÁN MỚI\n(ĐANG PHÁT TRIỂN..)',
+                    onPressed: () {
+                      print('Dự đoán ABC');
+                    },
+                    backgroundColor: const Color.fromARGB(255, 209, 209, 209),
+                  ),
                 ],
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
+    );
+  }
+
+  void _showOptionsBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Icon(Icons.keyboard),
+                title: Text('Nhập tay'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, '/inputScreen');
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.upload_file),
+                title: Text('Dùng file'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, '/uploadScreen');
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
 
-class AddPredictionCard extends StatelessWidget {
+class CustomButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+  final Color backgroundColor;
+  
+
+  CustomButton({
+    required this.text,
+    required this.onPressed,
+    this.backgroundColor = const Color(0xFF9E9E9E), // Màu mặc định
+  });
+
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        _showPopup(context, 'Chon cach nhap du lieu', "message");
-      },
-      child: Card(
-        color: Colors.grey.shade300,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.blueAccent, width: 4),
+          borderRadius: BorderRadius.circular(15),
         ),
-        child: Center(
-          child: Icon(
-            Icons.add_circle_sharp,
-            size: 40,
-            color: Colors.grey.shade600,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: backgroundColor,
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          onPressed: onPressed,
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Color(0xFF448AFF),
+              fontSize: 30,
+            ),
           ),
         ),
       ),
     );
   }
-}
-
-void _showPopup(BuildContext context, String predictionTitle, String message) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(predictionTitle),
-        content: Text(message),
-        actions: <Widget>[
-          TextButton(
-            child: Text('Nhap tay'),
-            onPressed: () {
-              Navigator.pushNamed(context, '/inputScreen');
-            },
-          ),
-          TextButton(
-            child: Text('Dung file'),
-            onPressed: () {
-              Navigator.pushNamed(context, '/uploadScreen');
-            },
-          ),
-        ],
-      );
-    },
-  );
 }
