@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tttn_05_flutter_mobile/Screens/menuScreen.dart';
+import '../Screens/homeScreen.dart';
 
 void main() {
   runApp(StartCreen());
@@ -63,7 +65,10 @@ class Startscreen extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 20.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/homeScreen');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Menu()),
+                    );
                   },
                   child: Text(
                     'BẮT ĐẦU',
