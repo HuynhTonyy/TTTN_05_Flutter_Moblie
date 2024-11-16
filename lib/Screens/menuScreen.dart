@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
-
+import 'package:tttn_05_flutter_mobile/Screens/uploadScreen.dart';
+import './inputPredictScreen.dart';
 void main() {
-  runApp(Menuscreen());
+  runApp(MenuScreen());
 }
 
-class Menuscreen extends StatelessWidget {
+class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: Menu(),
-      ),
+      home: Menu()
     );
   }
 }
-
-class Menu extends StatelessWidget {
+class Menu extends StatefulWidget {
+  @override
+  _Menu createState() => _Menu();
+}
+class _Menu extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -97,16 +99,20 @@ class Menu extends StatelessWidget {
                 leading: Icon(Icons.keyboard),
                 title: Text('Nhập tay'),
                 onTap: () {
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context, '/inputScreen');
-                },
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => InputPredictScreen()),
+                    );
+                  },
               ),
               ListTile(
                 leading: Icon(Icons.upload_file),
                 title: Text('Dùng file'),
                 onTap: () {
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context, '/uploadScreen');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => UploadScreen()),
+                    );
                 },
               ),
             ],
