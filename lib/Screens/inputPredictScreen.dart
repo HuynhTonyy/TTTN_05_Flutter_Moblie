@@ -16,7 +16,7 @@ class InputPredictScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: QuestionListScreen(),
+      home: Scaffold(body: QuestionListScreen(),),
       theme: ThemeData(
         fontFamily: 'Roboto',
       ),

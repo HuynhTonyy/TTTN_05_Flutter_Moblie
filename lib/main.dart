@@ -3,7 +3,6 @@ import 'package:tttn_05_flutter_mobile/Screens/inputPredictScreen.dart';
 import 'package:tttn_05_flutter_mobile/Screens/menuScreen.dart';
 import 'package:tttn_05_flutter_mobile/Screens/startScreen.dart';
 import 'package:tttn_05_flutter_mobile/Screens/uploadScreen.dart';
-
 void main() {
   runApp(MyApp());
 }
