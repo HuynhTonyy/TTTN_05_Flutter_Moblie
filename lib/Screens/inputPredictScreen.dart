@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:tttn_05_flutter_mobile/Screens/form/form_dialog_fail.dart';
+import 'package:tttn_05_flutter_mobile/Screens/menuScreen.dart';
 import 'form/form_dialog_pass.dart';
 import 'form/form_dialog_fail.dart';
 import '../Screens/Class/questions_data_class.dart';
@@ -202,8 +203,11 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.edit, color: Colors.black87),
-            onPressed: _editTitle,
+            icon: Icon(Icons.arrow_back, color: Colors.black87),
+            onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MenuScreen()),
+                    )
           ),
         ],
         backgroundColor: Color.fromARGB(255, 218, 124, 16),
