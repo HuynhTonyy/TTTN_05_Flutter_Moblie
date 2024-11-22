@@ -34,7 +34,18 @@ class FormFailDialog extends StatelessWidget {
 
             // Navigator.of(context).pop();
           },
-          child: Text('OK'),
+          child: Text('Quay về'),
+        ),
+        TextButton(
+          onPressed: () {
+            
+             Future.delayed(Duration(seconds: 3), () {
+                Navigator.pop(context);
+              });
+
+            // Navigator.of(context).pop();
+          },
+          child: Text('Chỉnh sửa'),
         ),
       ],
     );

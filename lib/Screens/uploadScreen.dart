@@ -7,6 +7,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:csv/csv.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:dio/dio.dart';
+import 'package:tttn_05_flutter_mobile/Screens/menuScreen.dart';
 
 void main() {
   runApp(UploadScreen());
@@ -21,7 +22,7 @@ class UploadScreen extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'DỰ ĐOÁN KẾT QUẢ HỌC TẬP'),
     );
   }
 }
@@ -365,82 +366,112 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     return true;
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
-        title:
-            Text(widget.title, style: TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.black87,size: 30,),
+            onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MenuScreen()),
+                )),
+      title: Text(
+        widget.title,
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+        ),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                // Scrollable Table Container
-                Container(
-                  constraints: BoxConstraints(
-                      maxHeight: 500), // Set a max height for the table
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12,
-                        offset: Offset(0, 4),
-                        blurRadius: 6,
-                      ),
-                    ],
-                  ),
-                  child: ScrollableTable(data: dataOutput), // Display data
-                ),
-
-                // Spacing between table and buttons
-                SizedBox(height: 20),
-
-                // Buttons for Upload and Download
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => uploadCSV(),
-                      style: ElevatedButton.styleFrom(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)),
-                        backgroundColor: Colors.blueAccent,
-                      ),
-                      child: Text("Upload CSV", style: TextStyle(fontSize: 16)),
-                    ),
-                    SizedBox(height: 10), // Space between buttons
-                    ElevatedButton(
-                      onPressed: () => downloadCSV(csvData),
-                      style: ElevatedButton.styleFrom(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)),
-                        backgroundColor: Colors.greenAccent,
-                      ),
-                      child:
-                          Text("Download CSV", style: TextStyle(fontSize: 16)),
+      backgroundColor: Colors.blueAccent,
+      centerTitle: true,
+       elevation: 10,
+      
+    ),
+    
+    body: Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Colors.blue.shade200,
+            Colors.blue.shade200
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // Scrollable Table Container
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 10,
+                      offset: Offset(0, 5),
                     ),
                   ],
                 ),
+                child: ScrollableTable(data: dataOutput),
+              ),
+            ),
+            SizedBox(height: 20),
+            // Upload and Download Buttons
+            Column(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: () => uploadCSV(),
+                    icon: Icon(Icons.upload_file, color: Colors.white,size: 30,),
+                    label: Text(
+                      "Upload CSV",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 34, 220, 84),
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: () => downloadCSV(csvData),
+                    icon: Icon(Icons.download, color: Colors.white, size: 30),
+                    label: Text(
+                      "Download CSV",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent,
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
-          ),
+          ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }
 
 class ScrollableTable extends StatelessWidget {

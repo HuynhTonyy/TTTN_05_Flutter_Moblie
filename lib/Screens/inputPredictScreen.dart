@@ -7,6 +7,7 @@ import 'form/form_dialog_pass.dart';
 import 'form/form_dialog_fail.dart';
 import '../Screens/Class/questions_data_class.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 void main() {
@@ -17,7 +18,9 @@ class InputPredictScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(body: QuestionListScreen(),),
+      home: Scaffold(
+        body: QuestionListScreen(),
+      ),
       theme: ThemeData(
         fontFamily: 'Roboto',
       ),
@@ -26,6 +29,7 @@ class InputPredictScreen extends StatelessWidget {
 }
 
 List<dynamic> questionLeftOverList = [];
+List<Question> questions = [];
 Map<String, dynamic> rearrangedSample = {
   'Name': "asd",
   'school_GP': 0,
@@ -94,7 +98,6 @@ class QuestionListScreen extends StatefulWidget {
 }
 
 class _QuestionListScreenState extends State<QuestionListScreen> {
-  List<Question> questions = [];
   String _title = 'DỰ ĐOÁN KẾT QUẢ HỌC TẬP';
   final TextEditingController _titleController = TextEditingController();
   @override
@@ -105,66 +108,67 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
 
   Future<int> predict(Map<String, dynamic> sample) async {
     List<int> inputData = [
-        sample['age'] as int,
-        sample['Medu'] as int,
-        sample['Fedu'] as int,
-        sample['traveltime'] as int,
-        sample['studytime'] as int,
-        sample['failures'] as int,
-        sample['famrel'] as int,
-        sample['freetime'] as int,
-        sample['goout'] as int,
-        sample['Dalc'] as int,
-        sample['Walc'] as int,
-        sample['health'] as int,
-        sample['absences'] as int,
-        sample['G1'] as int,
-        sample['G2'] as int,
-        sample['school_GP'] as int,
-        sample['school_MS'] as int,
-        sample['sex_F'] as int,
-        sample['sex_M'] as int,
-        sample['address_R'] as int,
-        sample['address_U'] as int,
-        sample['famsize_GT3'] as int,
-        sample['famsize_LE3'] as int,
-        sample['Pstatus_A'] as int,
-        sample['Pstatus_T'] as int,
-        sample['Mjob_at_home'] as int,
-        sample['Mjob_health'] as int,
-        sample['Mjob_other'] as int,
-        sample['Mjob_services'] as int,
-        sample['Mjob_teacher'] as int,
-        sample['Fjob_at_home'] as int,
-        sample['Fjob_health'] as int,
-        sample['Fjob_other'] as int,
-        sample['Fjob_services'] as int,
-        sample['Fjob_teacher'] as int,
-        sample['reason_course'] as int,
-        sample['reason_home'] as int,
-        sample['reason_other'] as int,
-        sample['reason_reputation'] as int,
-        sample['guardian_father'] as int,
-        sample['guardian_mother'] as int,
-        sample['guardian_other'] as int,
-        sample['schoolsup_no'] as int,
-        sample['schoolsup_yes'] as int,
-        sample['famsup_no'] as int,
-        sample['famsup_yes'] as int,
-        sample['paid_no'] as int,
-        sample['paid_yes'] as int,
-        sample['activities_no'] as int,
-        sample['activities_yes'] as int,
-        sample['nursery_no'] as int,
-        sample['nursery_yes'] as int,
-        sample['higher_no'] as int,
-        sample['higher_yes'] as int,
-        sample['internet_no'] as int,
-        sample['internet_yes'] as int,
-        sample['romantic_no'] as int,
-        sample['romantic_yes'] as int,
-      ];
+      sample['age'] as int,
+      sample['Medu'] as int,
+      sample['Fedu'] as int,
+      sample['traveltime'] as int,
+      sample['studytime'] as int,
+      sample['failures'] as int,
+      sample['famrel'] as int,
+      sample['freetime'] as int,
+      sample['goout'] as int,
+      sample['Dalc'] as int,
+      sample['Walc'] as int,
+      sample['health'] as int,
+      sample['absences'] as int,
+      sample['G1'] as int,
+      sample['G2'] as int,
+      sample['school_GP'] as int,
+      sample['school_MS'] as int,
+      sample['sex_F'] as int,
+      sample['sex_M'] as int,
+      sample['address_R'] as int,
+      sample['address_U'] as int,
+      sample['famsize_GT3'] as int,
+      sample['famsize_LE3'] as int,
+      sample['Pstatus_A'] as int,
+      sample['Pstatus_T'] as int,
+      sample['Mjob_at_home'] as int,
+      sample['Mjob_health'] as int,
+      sample['Mjob_other'] as int,
+      sample['Mjob_services'] as int,
+      sample['Mjob_teacher'] as int,
+      sample['Fjob_at_home'] as int,
+      sample['Fjob_health'] as int,
+      sample['Fjob_other'] as int,
+      sample['Fjob_services'] as int,
+      sample['Fjob_teacher'] as int,
+      sample['reason_course'] as int,
+      sample['reason_home'] as int,
+      sample['reason_other'] as int,
+      sample['reason_reputation'] as int,
+      sample['guardian_father'] as int,
+      sample['guardian_mother'] as int,
+      sample['guardian_other'] as int,
+      sample['schoolsup_no'] as int,
+      sample['schoolsup_yes'] as int,
+      sample['famsup_no'] as int,
+      sample['famsup_yes'] as int,
+      sample['paid_no'] as int,
+      sample['paid_yes'] as int,
+      sample['activities_no'] as int,
+      sample['activities_yes'] as int,
+      sample['nursery_no'] as int,
+      sample['nursery_yes'] as int,
+      sample['higher_no'] as int,
+      sample['higher_yes'] as int,
+      sample['internet_no'] as int,
+      sample['internet_yes'] as int,
+      sample['romantic_no'] as int,
+      sample['romantic_yes'] as int,
+    ];
     // Send POST request
+    print(inputData);
     final response = await http.post(
       Uri.parse('http://10.0.2.2:5000/predict'),
       headers: {"Content-Type": "application/json"},
@@ -185,7 +189,7 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
         await rootBundle.loadString('assets/questions_data.json');
     final List<dynamic> data = json.decode(response);
     questions = data.map((item) => Question.fromJson(item)).toList();
-    questionLeftOverList = questions;
+    questionLeftOverList = List.from(questions);
     setState(() {
       questions;
     });
@@ -195,157 +199,162 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          _title,
-          style: TextStyle(
-              color: Color.fromARGB(221, 255, 255, 255),
-              fontWeight: FontWeight.bold),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black87),
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.black87,size: 30,),
             onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MenuScreen()),
-                    )
+                  context,
+                  MaterialPageRoute(builder: (context) => MenuScreen()),
+                )),
+        title: Text(
+            _title,
+            style: TextStyle(
+                color: Color.fromARGB(221, 255, 255, 255),
+                fontWeight: FontWeight.bold,),
           ),
-        ],
-        backgroundColor: Color.fromARGB(255, 218, 124, 16),
+        backgroundColor: Colors.blueAccent,
         elevation: 0,
         centerTitle: true,
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color.fromARGB(255, 218, 124, 16), Colors.blue[300]!],
+            colors: [Colors.blue.shade200, Colors.blue.shade200],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
         ),
-        child: Column(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: ListView.builder(
-                  itemCount: questions.length,
-                  itemBuilder: (context, id) {
-                    return QuestionItem(
-                      index: id + 1,
-                      question: questions[id],
-                    );
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 0, bottom: 15, left: 10, right: 10),
-              child: SizedBox(
-                width: double.infinity,
-                height: 80,
-                child: ElevatedButton.icon(
-                  onPressed: () async {
-                    if (questionLeftOverList.length > 0) {
-                      String questionLeftOverListSTR = "";
-
-                      for (var i = 0; i < questionLeftOverList.length - 1; i++) {
-                        int minIndex = i;
-                        for (var j = i + 1; j < questionLeftOverList.length; j++) {
-                          if (questionLeftOverList[j].id < questionLeftOverList[minIndex].id) {
-                            minIndex = j;
-                          }
-                        }
-                        // Swap the elements if minIndex has changed
-                        if (minIndex != i) {
-                          var temp = questionLeftOverList[i];
-                          questionLeftOverList[i] = questionLeftOverList[minIndex];
-                          questionLeftOverList[minIndex] = temp;
-                        }
-                      }
-                      for (var i = 0; i < questionLeftOverList.length; i++) {
-                        questionLeftOverListSTR +=
-                            (questionLeftOverList[i].id + 1).toString() + ", ";
-                      }
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                            content: Text('Còn chưa trả lời câu ' +
-                                questionLeftOverListSTR.substring(0,questionLeftOverListSTR.length-2))),
-                      );
-                      return;
-                    }
-                    int g3 = await predict(rearrangedSample);
-                    if (g3 >= 10) {
-                      showDialog(
-                        context: context,
-                        builder: (context) => FormPassDialog(g3: g3),
-                      );
-                    } else {
-                      showDialog(
-                        context: context,
-                        builder: (context) => FormFailDialog(g3: g3),
-                      );
-                    }
-                  },
-                  icon: Icon(Icons.check_circle, color: Colors.white),
-                  label: Text(
-                    "Submit",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 34, 220, 84),
-                    padding: EdgeInsets.symmetric(vertical: 30),
-                    textStyle: TextStyle(fontSize: 23),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _editTitle() {
-    _titleController.text = _title;
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Chỉnh sửa tiêu đề"),
-          content: TextField(
-            controller: _titleController,
-            decoration: InputDecoration(hintText: "Nhập tiêu đề mới"),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text("Hủy"),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _title = _titleController.text;
-                });
-                Navigator.of(context).pop();
-              },
-              child: Text("Lưu"),
-            ),
-          ],
+       child: ListView(
+  padding: const EdgeInsets.all(15),
+  children: [
+    // The ListView builder to display the questions
+    ListView.builder(
+      shrinkWrap: true, // Make the ListView take up only the space it needs
+      physics: BouncingScrollPhysics(), // Makes scrolling smoother
+      itemCount: questions.length,
+      itemBuilder: (context, id) {
+        return QuestionItem(
+          index: id + 1,
+          question: questions[id],
         );
       },
+    ),
+    // Submit button at the bottom
+    SizedBox(
+        width: double.infinity,
+        height: 100,
+        child: ElevatedButton.icon(
+          onPressed: () async {
+            if (questionLeftOverList.length > 0) {
+              String questionLeftOverListSTR = "";
+
+              for (var i = 0; i < questionLeftOverList.length - 1; i++) {
+                int minIndex = i;
+                for (var j = i + 1; j < questionLeftOverList.length; j++) {
+                  if (questionLeftOverList[j].id <
+                      questionLeftOverList[minIndex].id) {
+                    minIndex = j;
+                  }
+                }
+                if (minIndex != i) {
+                  var temp = questionLeftOverList[i];
+                  questionLeftOverList[i] = questionLeftOverList[minIndex];
+                  questionLeftOverList[minIndex] = temp;
+                }
+              }
+              for (var i = 0; i < questionLeftOverList.length; i++) {
+                questionLeftOverListSTR +=
+                    (questionLeftOverList[i].id + 1).toString() + ", ";
+              }
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    content: Text('Còn chưa trả lời câu ' +
+                        questionLeftOverListSTR.substring(
+                            0, questionLeftOverListSTR.length - 2))),
+              );
+              return;
+            }
+            int g3 = await predict(rearrangedSample);
+            if (g3 >= 10) {
+              showDialog(
+                context: context,
+                builder: (context) => FormPassDialog(g3: g3),
+              );
+            } else {
+              showDialog(
+                context: context,
+                builder: (context) => FormFailDialog(g3: g3),
+              );
+            }
+          },
+          icon: Icon(Icons.check_circle, color: Colors.white),
+          label: Text(
+            "Submit",
+            style: TextStyle(color: Colors.white),
+          ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color.fromARGB(255, 34, 220, 84),
+            padding: EdgeInsets.symmetric(vertical: 30),
+            textStyle: TextStyle(fontSize: 23),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
+      ),
+  ],
+)
+      ),
     );
   }
 }
 
-class QuestionItem extends StatelessWidget {
+class QuestionItem extends StatefulWidget {
   final int index;
   final Question question;
   QuestionItem({required this.index, required this.question});
-  List<List<dynamic>> userInputData = [];
+
+  @override
+  _QuestionItemState createState() => _QuestionItemState();
+}
+
+class _QuestionItemState extends State<QuestionItem> {
+  dynamic selectedValue =
+      ''; // Initialize it with a default value, such as an empty string or the first option.
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAnswer();
+  }
+
+  // Hàm tải câu trả lời đã lưu từ SharedPreferences
+  Future<void> _loadAnswer() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedAnswer = prefs.getString(widget.question.id.toString());
+    if (savedAnswer != null) {
+      List<String> valueList = savedAnswer.toString().split("-");
+      for (var i = 0; i < widget.question.columns.length; i++) {
+        if (widget.question.columns[i] != "Name") {
+          rearrangedSample[widget.question.columns[i]] =
+              int.parse(valueList[i]);
+        } else {
+          rearrangedSample[widget.question.columns[i]] = valueList[i];
+        }
+      }
+      questionLeftOverList.remove(widget.question);
+      setState(() {
+        selectedValue = savedAnswer;
+      });
+    } else {
+      selectedValue = "";
+    }
+  }
+
+  // Hàm lưu câu trả lời vào SharedPreferences
+  Future<void> _saveAnswer(String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(widget.question.id.toString(), value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -368,7 +377,7 @@ class QuestionItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '$index. ${question.question}',
+              '${widget.index}. ${widget.question.question}',
               style: TextStyle(
                 color: Colors.black87,
                 fontSize: 22,
@@ -376,22 +385,29 @@ class QuestionItem extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
-            if (question.type == 'options') ...[
+            if (widget.question.type == 'options') ...[
               DropdownButtonFormField<String>(
+                value: selectedValue.isNotEmpty ? selectedValue : null,
                 hint: Text("Select an answer"),
-                items: question.options.entries.map((option) {
+                items: widget.question.options.entries.map((option) {
                   return DropdownMenuItem<String>(
                     value: option.key,
                     child: Text('${option.value}'),
                   );
                 }).toList(),
                 onChanged: (value) {
+                  setState(() {
+                    selectedValue = value!;
+                    _saveAnswer(value);
+                  });
+
+                  // Cập nhật rearrangedSample khi có lựa chọn mới
                   List<String> valueList = value.toString().split("-");
-                  for (var i = 0; i < question.columns.length; i++) {
-                    rearrangedSample[question.columns[i]] =
+                  for (var i = 0; i < widget.question.columns.length; i++) {
+                    rearrangedSample[widget.question.columns[i]] =
                         int.parse(valueList[i]);
                   }
-                  questionLeftOverList.remove(question);
+                  questionLeftOverList.remove(widget.question);
                 },
                 decoration: InputDecoration(
                   filled: true,
@@ -404,8 +420,9 @@ class QuestionItem extends StatelessWidget {
                   ),
                 ),
               ),
-            ] else if (question.type == 'input') ...[
+            ] else if (widget.question.type == 'input') ...[
               TextField(
+                controller: TextEditingController(text: selectedValue),
                 decoration: InputDecoration(
                   hintText: "Enter your answer",
                   filled: true,
@@ -417,15 +434,25 @@ class QuestionItem extends StatelessWidget {
                     borderSide: BorderSide.none,
                   ),
                 ),
-                keyboardType: question.id != 0
+                keyboardType: widget.question.id != 0
                     ? TextInputType.number
-                    : TextInputType.name, // Adjust based on expected input
+                    : TextInputType.name,
                 onChanged: (value) {
-                  rearrangedSample[question.columns[0]] = value;
+                  setState(() {
+                    if (widget.question.id != 0) {
+                      selectedValue = value;
+                    } else {
+                      selectedValue = int.tryParse(value);
+                    }
+                    _saveAnswer(value);
+                  });
+
+                  rearrangedSample[widget.question.columns[0]] =
+                      int.tryParse(value);
                   if (value != "") {
-                    questionLeftOverList.remove(question);
+                    questionLeftOverList.remove(widget.question);
                   } else {
-                    questionLeftOverList.add(question);
+                    questionLeftOverList.add(widget.question);
                   }
                 },
               ),
