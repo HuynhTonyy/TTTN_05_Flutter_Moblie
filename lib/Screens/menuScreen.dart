@@ -23,9 +23,9 @@ class _Menu extends State<Menu> {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.orange.shade200, Colors.blue.shade200],
-            begin: Alignment.topLeft,
-            end: Alignment.topRight,
+          colors: [const Color.fromARGB(255, 255, 255, 255), Colors.blue.shade200],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ),
       ),
       child: SafeArea(
@@ -35,13 +35,13 @@ class _Menu extends State<Menu> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Image.asset(
-                'assets/logo.png',
+                'assets/app_logo.png',
                 width: 170,
                 height: 170,
               ),
               SizedBox(height: 5),
               Text(
-                'AI',
+                'Future Lens',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 50,
@@ -61,21 +61,21 @@ class _Menu extends State<Menu> {
                     onPressed: () {
                       _showOptionsBottomSheet(context);
                     },
-                    backgroundColor: const Color.fromRGBO(66, 66, 66, 1),
+                    backgroundColor: const Color.fromARGB(142, 0, 81, 255),
                   ),
                   CustomButton(
-                    text: 'DỰ ĐOÁN MỚI\n(ĐANG PHÁT TRIỂN..)',
+                    text: 'CHỨC NĂNG\nĐANG PHÁT TRIỂN...',
                     onPressed: () {
                       print('Dự đoán hình ảnh X-Quang');
                     },
-                    backgroundColor: const Color.fromARGB(255, 209, 209, 209),
+                    backgroundColor: const Color.fromARGB(255, 180, 180, 180),
                   ),
                   CustomButton(
-                    text: 'DỰ ĐOÁN MỚI\n(ĐANG PHÁT TRIỂN..)',
+                    text: 'CHỨC NĂNG\nĐANG PHÁT TRIỂN...',
                     onPressed: () {
                       print('Dự đoán ABC');
                     },
-                    backgroundColor: const Color.fromARGB(255, 209, 209, 209),
+                    backgroundColor: const Color.fromARGB(255, 180, 180, 180),
                   ),
                 ],
               ),
@@ -96,8 +96,8 @@ class _Menu extends State<Menu> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: Icon(Icons.keyboard),
-                title: Text('Nhập tay'),
+                leading: Icon(Icons.keyboard,size: 30),
+                title: Text('Nhập tay',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                 onTap: () {
                     Navigator.push(
                       context,
@@ -106,8 +106,8 @@ class _Menu extends State<Menu> {
                   },
               ),
               ListTile(
-                leading: Icon(Icons.upload_file),
-                title: Text('Dùng file'),
+                leading: Icon(Icons.upload_file,size: 30),
+                title: Text('Dùng file',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                 onTap: () {
                   Navigator.push(
                       context,
@@ -141,23 +141,25 @@ class CustomButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.blueAccent, width: 4),
+          // border: Border.all(color: Colors.blueAccent, width: 4),
           borderRadius: BorderRadius.circular(15),
         ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: backgroundColor,
+            elevation: 10,
             padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
           ),
+
           onPressed: onPressed,
           child: Text(
             text,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Color(0xFF448AFF),
+              color: Color.fromARGB(255, 232, 232, 232),
               fontSize: 30,
             ),
           ),

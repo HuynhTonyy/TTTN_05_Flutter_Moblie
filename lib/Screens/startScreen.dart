@@ -34,13 +34,13 @@ class _StartScreenBodyState extends State<StartScreenBody> {
     return Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
-          colors: [Colors.orange.shade200, Colors.blue.shade200],
-          begin: Alignment.topLeft,
-          end: Alignment.topRight,
+          colors: [const Color.fromARGB(255, 255, 255, 255), Colors.blue.shade200],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         )),
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -48,53 +48,48 @@ class _StartScreenBodyState extends State<StartScreenBody> {
                   Padding(
                     padding: const EdgeInsets.only(top: 80.0),
                     child: Image.asset(
-                      'assets/logo.png',
+                      'assets/app_logo.png',
                       height: 170,
                       width: 170,
                     ),
                   ),
                   Text(
-                    'AI',
+                    'Future Lens',
                     style: TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                       color: Colors.blueAccent,
                     ),
                   ),
-                  Text(
-                    'CHUYÊN ĐỀ APP\nCHUẨN ĐOÁN BẰNG AI',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.blueAccent,
-                    ),
-                  ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/menuScreen");
-                  },
-                  child: Text(
-                    'BẮT ĐẦU',
-                    style: TextStyle(fontSize: 30),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(142, 0, 25, 78),
-                    foregroundColor: Colors.blueAccent,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 190, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+              Container(
+                margin: EdgeInsets.only(left:0,top: 200,right: 0,bottom: 0),
+                child: Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/menuScreen");
+                    },
+                    child: Text(
+                      'BẮT ĐẦU',
+                      style: TextStyle(fontSize: 30),
                     ),
-                    elevation: 5,
-                    side: BorderSide(color: const Color(0xFF448AFF), width: 2),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(142, 0, 81, 255),
+                      foregroundColor: const Color.fromARGB(255, 232, 232, 232),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      elevation: 10,
+                      // side: BorderSide(color: const Color(0xFF448AFF), width: 2),
+                    ),
                   ),
-                ),
               ),
-            ],
+            )
+              ],
           ),
         ));
   }

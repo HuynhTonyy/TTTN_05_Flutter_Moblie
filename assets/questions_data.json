@@ -67,7 +67,7 @@
   {
     "id": 7,
     "question": "Mẹ của học sinh có trình độ học vấn nào?",
-    "type": "ruler",
+    "type": "options",
     "options": {
       "0": "Không có học vấn (0)",
       "1": "Tiểu học (1)",
@@ -80,7 +80,7 @@
   {
     "id": 8,
     "question": "Bố của học sinh có trình độ học vấn nào?",
-    "type": "ruler",
+    "type": "options",
     "options": {
       "0": "Không có học vấn (0)",
       "1": "Tiểu học (1)",
