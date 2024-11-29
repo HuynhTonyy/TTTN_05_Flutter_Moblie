@@ -86,7 +86,7 @@ class _Menu extends State<Menu> {
     );
   }
 
-  void _showOptionsBottomSheet(BuildContext context) {
+    void _showOptionsBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -96,23 +96,38 @@ class _Menu extends State<Menu> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: Icon(Icons.keyboard,size: 30),
-                title: Text('Nhập tay',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => InputPredictScreen()),
-                    );
-                  },
-              ),
-              ListTile(
-                leading: Icon(Icons.upload_file,size: 30),
-                title: Text('Dùng file',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                leading: Icon(Icons.keyboard, size: 30),
+                title: Text(
+                  'Nhập tay',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(
+                  'Trả lời bộ câu hỏi để thực hiện dự đoán',
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                ),
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => UploadScreen()),
-                    );
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => InputPredictScreen()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.upload_file, size: 30),
+                title: Text(
+                  'Dùng file',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(
+                  'Bạn sẽ nộp file CSV',
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UploadScreen()),
+                  );
                 },
               ),
             ],
@@ -121,6 +136,7 @@ class _Menu extends State<Menu> {
       },
     );
   }
+
 }
 
 class CustomButton extends StatelessWidget {
