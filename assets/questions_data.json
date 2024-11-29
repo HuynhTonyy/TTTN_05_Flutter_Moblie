@@ -9,7 +9,7 @@
   },
   {
     "id": 1,
-    "question": "Học sinh học tại trường nào?",
+    "question": "sinh viên học tại trường nào?",
     "type": "options",
     "options": {
       "0-1": "Gabriel Pereira (GP)",
@@ -19,7 +19,7 @@
   },
   {
     "id": 2,
-    "question": "Giới tính của học sinh là gì?",
+    "question": "Giới tính của sinh viên là gì?",
     "type": "options",
     "options": {
       "0-1": "Nữ (F)",
@@ -29,14 +29,14 @@
   },
   {
     "id": 3,
-    "question": "Học sinh bao nhiêu tuổi?",
+    "question": "sinh viên bao nhiêu tuổi?",
     "type": "input",
     "options": {},
     "columns": ["age"]
   },
   {
     "id": 4,
-    "question": "Học sinh sống ở khu vực nào?",
+    "question": "sinh viên sống ở khu vực nào?",
     "type": "options",
     "options": {
       "1-0": "Thành thị (U)",
@@ -46,7 +46,7 @@
   },
   {
     "id": 5,
-    "question": "Gia đình học sinh có bao nhiêu thành viên?",
+    "question": "Gia đình sinh viên có bao nhiêu thành viên?",
     "type": "options",
     "options": {
       "1-0": "3 người trở xuống (LE3)",
@@ -56,7 +56,7 @@
   },
   {
     "id": 6,
-    "question": "Bố mẹ học sinh sống chung hay sống riêng?",
+    "question": "Bố mẹ sinh viên sống chung hay sống riêng?",
     "type": "options",
     "options": {
       "1-0": "Sống chung (T)",
@@ -66,7 +66,7 @@
   },
   {
     "id": 7,
-    "question": "Mẹ của học sinh có trình độ học vấn nào?",
+    "question": "Mẹ của sinh viên có trình độ học vấn nào?",
     "type": "options",
     "options": {
       "0": "Không có học vấn (0)",
@@ -79,7 +79,7 @@
   },
   {
     "id": 8,
-    "question": "Bố của học sinh có trình độ học vấn nào?",
+    "question": "Bố của sinh viên có trình độ học vấn nào?",
     "type": "options",
     "options": {
       "0": "Không có học vấn (0)",
@@ -92,7 +92,7 @@
   },
   {
     "id": 9,
-    "question": "Mẹ của học sinh làm nghề gì?",
+    "question": "Mẹ của sinh viên làm nghề gì?",
     "type": "options",
     "options": {
       "1-0-0-0-0": "Giáo viên",
@@ -105,7 +105,7 @@
   },
   {
     "id": 10,
-    "question": "Bố của học sinh làm nghề gì?",
+    "question": "Bố của sinh viên làm nghề gì?",
     "type": "options",
     "options": {
       "1-0-0-0-0": "Giáo viên",
@@ -118,7 +118,7 @@
   },
   {
     "id": 11,
-    "question": "Tại sao học sinh chọn trường này?",
+    "question": "Tại sao sinh viên chọn trường này?",
     "type": "options",
     "options": {
       "1-0-0-0": "Gần nhà",
@@ -130,7 +130,7 @@
   },
   {
     "id": 12,
-    "question": "Ai là người giám hộ của học sinh?",
+    "question": "Ai là người giám hộ của sinh viên?",
     "type": "options",
     "options": {
       "1-0-0": "Mẹ",
@@ -141,7 +141,7 @@
   },
   {
     "id": 13,
-    "question": "Học sinh mất bao nhiêu thời gian để đến trường?",
+    "question": "Sinh viên mất bao nhiêu thời gian để đến trường?",
     "type": "options",
     "options": {
       "1": "Dưới 15 phút (1)",
@@ -153,7 +153,7 @@
   },
   {
     "id": 14,
-    "question": "Học sinh dành bao nhiêu thời gian học mỗi tuần?",
+    "question": "Sinh viên dành bao nhiêu thời gian học mỗi tuần?",
     "type": "options",
     "options": {
       "1": "Dưới 2 giờ (1)",
@@ -165,7 +165,7 @@
   },
   {
     "id": 15,
-    "question": "Học sinh đã từng trượt bao nhiêu lần trước đây?",
+    "question": "Sinh viên đã từng trượt bao nhiêu lần trước đây?",
     "type": "options",
     "options": {
       "0": "0 lần",
@@ -177,7 +177,7 @@
   },
   {
     "id": 16,
-    "question": "Học sinh có nhận hỗ trợ học thêm từ trường không?",
+    "question": "Sinh viên có nhận hỗ trợ học thêm từ trường không?",
     "type": "options",
     "options": {
       "1-0": "Có",
@@ -187,7 +187,7 @@
   },
   {
     "id": 17,
-    "question": "Học sinh có nhận hỗ trợ học tập từ gia đình không?",
+    "question": "Sinh viên có nhận hỗ trợ học tập từ gia đình không?",
     "type": "options",
     "options": {
       "1-0": "Có",
@@ -197,7 +197,7 @@
   },
   {
     "id": 18,
-    "question": "Học sinh có học thêm các lớp trong môn học chính không?",
+    "question": "Sinh viên có học thêm các lớp trong môn học chính không?",
     "type": "options",
     "options": {
       "1-0": "Có",
@@ -207,7 +207,7 @@
   },
   {
     "id": 19,
-    "question": "Học sinh có tham gia các hoạt động ngoại khóa không?",
+    "question": "Sinh viên có tham gia các hoạt động ngoại khóa không?",
     "type": "options",
     "options": {
       "1-0": "Có",
@@ -217,7 +217,7 @@
   },
   {
     "id": 20,
-    "question": "Học sinh có từng học mẫu giáo không?",
+    "question": "Sinh viên có từng học mẫu giáo không?",
     "type": "options",
     "options": {
       "1-0": "Có",
@@ -227,7 +227,7 @@
   },
   {
     "id": 21,
-    "question": "Học sinh có muốn học lên đại học không?",
+    "question": "Sinh viên có muốn học lên đại học không?",
     "type": "options",
     "options": {
       "1-0": "Có",
@@ -237,7 +237,7 @@
   },
   {
     "id": 22,
-    "question": "Học sinh có kết nối Internet tại nhà không?",
+    "question": "Sinh viên có kết nối Internet tại nhà không?",
     "type": "options",
     "options": {
       "1-0": "Có",
@@ -247,7 +247,7 @@
   },
   {
     "id": 23,
-    "question": "Học sinh có đang trong một mối quan hệ tình cảm không?",
+    "question": "Sinh viên có đang trong một mối quan hệ tình cảm không?",
     "type": "options",
     "options": {
       "1-0": "Có",
@@ -257,7 +257,7 @@
   },
   {
     "id": 24,
-    "question": "Học sinh đánh giá mối quan hệ gia đình như thế nào?",
+    "question": "Sinh viên đánh giá mối quan hệ gia đình như thế nào?",
     "type": "options",
     "options": {
       "1": "Rất tệ (1)",
@@ -270,7 +270,7 @@
   },
   {
     "id": 25,
-    "question": "Học sinh có bao nhiêu thời gian rảnh sau giờ học?",
+    "question": "Sinh viên có bao nhiêu thời gian rảnh sau giờ học?",
     "type": "options",
     "options": {
       "1": "Rất ít (1)",
@@ -283,7 +283,7 @@
   },
   {
     "id": 26,
-    "question": "Học sinh đi chơi với bạn bè ở mức độ nào?",
+    "question": "Sinh viên đi chơi với bạn bè ở mức độ nào?",
     "type": "options",
     "options": {
       "1": "Rất ít (1)",
@@ -296,7 +296,7 @@
   },
   {
     "id": 27,
-    "question": "Trong một ngày học, học sinh tham gia vào các hoạt động thư giãn hay giải trí ở mức độ nào?",
+    "question": "Trong một ngày học, sinh viên tham gia vào các hoạt động thư giãn hay giải trí ở mức độ nào?",
     "type": "options",
     "options": {
       "1": "Rất ít (1)",
@@ -309,7 +309,7 @@
   },
   {
     "id": 28,
-    "question": "Vào cuối tuần, học sinh tham gia vào các hoạt động thư giãn hay giải trí ở mức độ nào?",
+    "question": "Vào cuối tuần, sinh viên tham gia vào các hoạt động thư giãn hay giải trí ở mức độ nào?",
     "type": "options",
     "options": {
       "1": "Rất ít (1)",
@@ -322,7 +322,7 @@
   },
   {
     "id": 29,
-    "question": "Học sinh đánh giá tình trạng sức khỏe hiện tại như thế nào?",
+    "question": "Sinh viên đánh giá tình trạng sức khỏe hiện tại như thế nào?",
     "type": "options",
     "options": {
       "1": "Rất tệ (1)",
@@ -335,21 +335,21 @@
   },
   {
     "id": 30,
-    "question": "Học sinh đã nghỉ học bao nhiêu buổi?",
+    "question": "Sinh viên đã nghỉ học bao nhiêu buổi?",
     "type": "input",
     "options": {},
     "columns": ["absences"]
   },
   {
     "id": 31,
-    "question": "Điểm kỳ đầu tiên của học sinh là bao nhiêu?",
+    "question": "Điểm kỳ đầu tiên của sinh viên là bao nhiêu?",
     "type": "input",
     "options": {},
     "columns": ["G1"]
   },
   {
     "id": 32,
-    "question": "Điểm kỳ thứ hai của học sinh là bao nhiêu?",
+    "question": "Điểm kỳ thứ hai của sinh viên là bao nhiêu?",
     "type": "input",
     "options": {},
     "columns": ["G2"]

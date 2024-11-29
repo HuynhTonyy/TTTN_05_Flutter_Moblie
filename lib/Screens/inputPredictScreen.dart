@@ -200,110 +200,121 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black87,size: 30,),
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black87,
+              size: 30,
+            ),
             onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => MenuScreen()),
                 )),
         title: Text(
-            _title,
-            style: TextStyle(
-                color: Color.fromARGB(221, 255, 255, 255),
-                fontWeight: FontWeight.bold,),
+          _title,
+          style: TextStyle(
+            color: Color.fromARGB(221, 255, 255, 255),
+            fontWeight: FontWeight.bold,
           ),
+        ),
         backgroundColor: Colors.blueAccent,
         elevation: 0,
         centerTitle: true,
       ),
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.blue.shade200, Colors.blue.shade200],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-       child: ListView(
-  padding: const EdgeInsets.all(15),
-  children: [
-    // The ListView builder to display the questions
-    ListView.builder(
-      shrinkWrap: true, // Make the ListView take up only the space it needs
-      physics: BouncingScrollPhysics(), // Makes scrolling smoother
-      itemCount: questions.length,
-      itemBuilder: (context, id) {
-        return QuestionItem(
-          index: id + 1,
-          question: questions[id],
-        );
-      },
-    ),
-    // Submit button at the bottom
-    SizedBox(
-        width: double.infinity,
-        height: 100,
-        child: ElevatedButton.icon(
-          onPressed: () async {
-            if (questionLeftOverList.length > 0) {
-              String questionLeftOverListSTR = "";
-
-              for (var i = 0; i < questionLeftOverList.length - 1; i++) {
-                int minIndex = i;
-                for (var j = i + 1; j < questionLeftOverList.length; j++) {
-                  if (questionLeftOverList[j].id <
-                      questionLeftOverList[minIndex].id) {
-                    minIndex = j;
-                  }
-                }
-                if (minIndex != i) {
-                  var temp = questionLeftOverList[i];
-                  questionLeftOverList[i] = questionLeftOverList[minIndex];
-                  questionLeftOverList[minIndex] = temp;
-                }
-              }
-              for (var i = 0; i < questionLeftOverList.length; i++) {
-                questionLeftOverListSTR +=
-                    (questionLeftOverList[i].id + 1).toString() + ", ";
-              }
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content: Text('Còn chưa trả lời câu ' +
-                        questionLeftOverListSTR.substring(
-                            0, questionLeftOverListSTR.length - 2))),
-              );
-              return;
-            }
-            int g3 = await predict(rearrangedSample);
-            if (g3 >= 10) {
-              showDialog(
-                context: context,
-                builder: (context) => FormPassDialog(g3: g3),
-              );
-            } else {
-              showDialog(
-                context: context,
-                builder: (context) => FormFailDialog(g3: g3),
-              );
-            }
-          },
-          icon: Icon(Icons.check_circle, color: Colors.white),
-          label: Text(
-            "Submit",
-            style: TextStyle(color: Colors.white),
-          ),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Color.fromARGB(255, 34, 220, 84),
-            padding: EdgeInsets.symmetric(vertical: 30),
-            textStyle: TextStyle(fontSize: 23),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blue.shade200, Colors.blue.shade200],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
           ),
-        ),
-      ),
-  ],
-)
-      ),
+          child: ListView(
+            padding: const EdgeInsets.all(15),
+            children: [
+              // The ListView builder to display the questions
+              ListView.builder(
+                shrinkWrap:
+                    true, // Make the ListView take up only the space it needs
+                physics: BouncingScrollPhysics(), // Makes scrolling smoother
+                itemCount: questions.length,
+                itemBuilder: (context, id) {
+                  return QuestionItem(
+                    index: id + 1,
+                    question: questions[id],
+                  );
+                },
+              ),
+              // Submit button at the bottom
+              SizedBox(
+                width: double.infinity,
+                height: 100,
+                child: ElevatedButton.icon(
+                  onPressed: () async {
+                    if (questionLeftOverList.length > 0) {
+                      String questionLeftOverListSTR = "";
+
+                      for (var i = 0;
+                          i < questionLeftOverList.length - 1;
+                          i++) {
+                        int minIndex = i;
+                        for (var j = i + 1;
+                            j < questionLeftOverList.length;
+                            j++) {
+                          if (questionLeftOverList[j].id <
+                              questionLeftOverList[minIndex].id) {
+                            minIndex = j;
+                          }
+                        }
+                        if (minIndex != i) {
+                          var temp = questionLeftOverList[i];
+                          questionLeftOverList[i] =
+                              questionLeftOverList[minIndex];
+                          questionLeftOverList[minIndex] = temp;
+                        }
+                      }
+                      for (var i = 0; i < questionLeftOverList.length; i++) {
+                        questionLeftOverListSTR +=
+                            (questionLeftOverList[i].id + 1).toString() + ", ";
+                      }
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            content: Text('Còn chưa trả lời câu ' +
+                                questionLeftOverListSTR.substring(
+                                    0, questionLeftOverListSTR.length - 2))),
+                      );
+                      return;
+                    }
+                    int g3 = await predict(rearrangedSample);
+                    print(g3);
+                    if (g3 >= 10) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => FormPassDialog(g3: g3),
+                      );
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (context) => FormFailDialog(g3: g3),
+                      );
+                    }
+                  },
+                  icon: Icon(Icons.check_circle, color: Colors.white),
+                  label: Text(
+                    "Submit",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 34, 220, 84),
+                    padding: EdgeInsets.symmetric(vertical: 30),
+                    textStyle: TextStyle(fontSize: 23),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )),
     );
   }
 }
@@ -318,13 +329,20 @@ class QuestionItem extends StatefulWidget {
 }
 
 class _QuestionItemState extends State<QuestionItem> {
-  dynamic selectedValue =
-      ''; // Initialize it with a default value, such as an empty string or the first option.
+  dynamic selectedValue = ''; // Initialize it with a default value
+  late TextEditingController _textController;
 
   @override
   void initState() {
     super.initState();
+    _textController = TextEditingController();
     _loadAnswer();
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
   }
 
   // Hàm tải câu trả lời đã lưu từ SharedPreferences
@@ -335,8 +353,7 @@ class _QuestionItemState extends State<QuestionItem> {
       List<String> valueList = savedAnswer.toString().split("-");
       for (var i = 0; i < widget.question.columns.length; i++) {
         if (widget.question.columns[i] != "Name") {
-          rearrangedSample[widget.question.columns[i]] =
-              int.parse(valueList[i]);
+          rearrangedSample[widget.question.columns[i]] = int.parse(valueList[i]);
         } else {
           rearrangedSample[widget.question.columns[i]] = valueList[i];
         }
@@ -344,9 +361,13 @@ class _QuestionItemState extends State<QuestionItem> {
       questionLeftOverList.remove(widget.question);
       setState(() {
         selectedValue = savedAnswer;
+        _textController.text = savedAnswer; // Update controller's text
       });
     } else {
-      selectedValue = "";
+      setState(() {
+        selectedValue = "";
+        _textController.text = ""; // Clear controller's text
+      });
     }
   }
 
@@ -422,7 +443,7 @@ class _QuestionItemState extends State<QuestionItem> {
               ),
             ] else if (widget.question.type == 'input') ...[
               TextField(
-                controller: TextEditingController(text: selectedValue),
+                controller: _textController,
                 decoration: InputDecoration(
                   hintText: "Enter your answer",
                   filled: true,
@@ -439,11 +460,7 @@ class _QuestionItemState extends State<QuestionItem> {
                     : TextInputType.name,
                 onChanged: (value) {
                   setState(() {
-                    if (widget.question.id != 0) {
-                      selectedValue = value;
-                    } else {
-                      selectedValue = int.tryParse(value);
-                    }
+                    selectedValue = value;
                     _saveAnswer(value);
                   });
 
