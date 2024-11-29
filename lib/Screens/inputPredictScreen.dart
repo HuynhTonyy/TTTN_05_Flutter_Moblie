@@ -285,16 +285,17 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
                       return;
                     }
                     int g3 = await predict(rearrangedSample);
-                    print(g3);
                     if (g3 >= 10) {
                       showDialog(
                         context: context,
-                        builder: (context) => FormPassDialog(g3: g3),
+                        builder: (context) => FormPassDialog(
+                            Name: rearrangedSample["Name"], g3: g3),
                       );
                     } else {
                       showDialog(
                         context: context,
-                        builder: (context) => FormFailDialog(g3: g3),
+                        builder: (context) => FormFailDialog(
+                            Name: rearrangedSample["Name"], g3: g3),
                       );
                     }
                   },
@@ -353,7 +354,8 @@ class _QuestionItemState extends State<QuestionItem> {
       List<String> valueList = savedAnswer.toString().split("-");
       for (var i = 0; i < widget.question.columns.length; i++) {
         if (widget.question.columns[i] != "Name") {
-          rearrangedSample[widget.question.columns[i]] = int.parse(valueList[i]);
+          rearrangedSample[widget.question.columns[i]] =
+              int.parse(valueList[i]);
         } else {
           rearrangedSample[widget.question.columns[i]] = valueList[i];
         }
