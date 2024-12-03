@@ -22,22 +22,17 @@ class FormPassDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () {
-            Future.delayed(Duration(seconds: 3), () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => MenuScreen()),
-              );
-            });
-
-            // Navigator.of(context).pop();
+            Navigator.pop(context,true);
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(builder: (context) => MenuScreen()),
+            //   );
           },
           child: Text('Quay về'),
         ),
         TextButton(
           onPressed: () {
-            Future.delayed(Duration(seconds: 3), () {
-              Navigator.pop(context);
-            });
+            Navigator.pop(context,false);
           },
           child: Text('Chỉnh sửa'),
         ),

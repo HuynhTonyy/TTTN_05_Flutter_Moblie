@@ -20,28 +20,24 @@ class FormFailDialog extends StatelessWidget {
           Text('Rất tiếc', style: TextStyle(fontWeight: FontWeight.w800)),
         ],
       ),
-      content: Text('Sinh viên ${Name}.\nSố điểm ${g3.toString()}/20.\nBạn đã rớt.',
+      content: Text(
+          'Sinh viên ${Name}.\nSố điểm ${g3.toString()}/20.\nBạn đã rớt.',
           style: TextStyle(fontSize: 18)),
       actions: [
         TextButton(
           onPressed: () {
-            Future.delayed(Duration(seconds: 3), () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => MenuScreen()),
-              );
-            });
+            // Navigator.pushReplacement(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => MenuScreen()),
+            // );
 
-            // Navigator.of(context).pop();
+            Navigator.pop(context,true);
           },
           child: Text('Quay về'),
         ),
         TextButton(
           onPressed: () {
-            Future.delayed(Duration(seconds: 3), () {
-              Navigator.pop(context);
-            });
-
+            Navigator.pop(context,false);
             // Navigator.of(context).pop();
           },
           child: Text('Chỉnh sửa'),

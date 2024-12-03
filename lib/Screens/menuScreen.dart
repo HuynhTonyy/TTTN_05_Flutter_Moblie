@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tttn_05_flutter_mobile/Screens/uploadScreen.dart';
 import './inputPredictScreen.dart';
+
 void main() {
   runApp(MenuScreen());
 }
@@ -8,22 +9,25 @@ void main() {
 class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Menu()
-    );
+    return MaterialApp(home: Menu());
   }
 }
+
 class Menu extends StatefulWidget {
   @override
   _Menu createState() => _Menu();
 }
+
 class _Menu extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [const Color.fromARGB(255, 255, 255, 255), Colors.blue.shade200],
+          colors: [
+            const Color.fromARGB(255, 255, 255, 255),
+            Colors.blue.shade200
+          ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -47,11 +51,10 @@ class _Menu extends State<Menu> {
                   fontSize: 50,
                   fontWeight: FontWeight.bold,
                   color: Colors.blueAccent,
-                  fontFamily: 'Roboto', 
+                  fontFamily: 'Roboto',
                   decoration: TextDecoration.none,
                 ),
               ),
-
               SizedBox(height: 70),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -86,7 +89,7 @@ class _Menu extends State<Menu> {
     );
   }
 
-    void _showOptionsBottomSheet(BuildContext context) {
+  void _showOptionsBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -136,14 +139,12 @@ class _Menu extends State<Menu> {
       },
     );
   }
-
 }
 
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final Color backgroundColor;
-  
 
   CustomButton({
     required this.text,
@@ -169,7 +170,6 @@ class CustomButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-
           onPressed: onPressed,
           child: Text(
             text,

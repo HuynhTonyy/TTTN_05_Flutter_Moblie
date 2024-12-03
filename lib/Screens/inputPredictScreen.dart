@@ -6,7 +6,7 @@ import 'package:tttn_05_flutter_mobile/Screens/menuScreen.dart';
 import 'form/form_dialog_pass.dart';
 import 'form/form_dialog_fail.dart';
 import '../Screens/Class/questions_data_class.dart';
-
+import 'package:tttn_05_flutter_mobile/Screens/menuScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -195,6 +195,64 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
     });
   }
 
+  Future<void> checkSubmit() async {
+    final prefs = await SharedPreferences.getInstance();
+    var temp = List.from(questionLeftOverList);
+    for (var i = 0; i < temp.length; i++) {
+      if (prefs.getString(temp[i].id.toString()) != null) {
+        questionLeftOverList.remove(temp[i]);
+      }
+    }
+    if (questionLeftOverList.length > 0) {
+      String questionLeftOverListSTR = "";
+      for (var i = 0; i < questionLeftOverList.length - 1; i++) {
+        int minIndex = i;
+        for (var j = i + 1; j < questionLeftOverList.length; j++) {
+          if (questionLeftOverList[j].id < questionLeftOverList[minIndex].id) {
+            minIndex = j;
+          }
+        }
+        if (minIndex != i) {
+          var temp = questionLeftOverList[i];
+          questionLeftOverList[i] = questionLeftOverList[minIndex];
+          questionLeftOverList[minIndex] = temp;
+        }
+      }
+      for (var i = 0; i < questionLeftOverList.length; i++) {
+        questionLeftOverListSTR +=
+            (questionLeftOverList[i].id + 1).toString() + ", ";
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text('Còn chưa trả lời câu ' +
+                questionLeftOverListSTR.substring(
+                    0, questionLeftOverListSTR.length - 2))),
+      );
+      return;
+    }
+    int g3 = await predict(rearrangedSample);
+    var toMenu = false;
+    if (g3 >= 10) {
+      toMenu = await showDialog(
+        context: context,
+        builder: (context) =>
+            FormPassDialog(Name: rearrangedSample["Name"], g3: g3),
+      );
+    } else {
+      toMenu = await showDialog(
+        context: context,
+        builder: (context) =>
+            FormFailDialog(Name: rearrangedSample["Name"], g3: g3),
+      );
+    }
+    if (toMenu) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MenuScreen()),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -249,56 +307,7 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
                 width: double.infinity,
                 height: 100,
                 child: ElevatedButton.icon(
-                  onPressed: () async {
-                    if (questionLeftOverList.length > 0) {
-                      String questionLeftOverListSTR = "";
-
-                      for (var i = 0;
-                          i < questionLeftOverList.length - 1;
-                          i++) {
-                        int minIndex = i;
-                        for (var j = i + 1;
-                            j < questionLeftOverList.length;
-                            j++) {
-                          if (questionLeftOverList[j].id <
-                              questionLeftOverList[minIndex].id) {
-                            minIndex = j;
-                          }
-                        }
-                        if (minIndex != i) {
-                          var temp = questionLeftOverList[i];
-                          questionLeftOverList[i] =
-                              questionLeftOverList[minIndex];
-                          questionLeftOverList[minIndex] = temp;
-                        }
-                      }
-                      for (var i = 0; i < questionLeftOverList.length; i++) {
-                        questionLeftOverListSTR +=
-                            (questionLeftOverList[i].id + 1).toString() + ", ";
-                      }
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                            content: Text('Còn chưa trả lời câu ' +
-                                questionLeftOverListSTR.substring(
-                                    0, questionLeftOverListSTR.length - 2))),
-                      );
-                      return;
-                    }
-                    int g3 = await predict(rearrangedSample);
-                    if (g3 >= 10) {
-                      showDialog(
-                        context: context,
-                        builder: (context) => FormPassDialog(
-                            Name: rearrangedSample["Name"], g3: g3),
-                      );
-                    } else {
-                      showDialog(
-                        context: context,
-                        builder: (context) => FormFailDialog(
-                            Name: rearrangedSample["Name"], g3: g3),
-                      );
-                    }
-                  },
+                  onPressed: checkSubmit,
                   icon: Icon(Icons.check_circle, color: Colors.white),
                   label: Text(
                     "Submit",
@@ -459,15 +468,19 @@ class _QuestionItemState extends State<QuestionItem> {
                 ),
                 keyboardType: widget.question.id != 0
                     ? TextInputType.number
-                    : TextInputType.name,
+                    : TextInputType.text,
                 onChanged: (value) {
                   setState(() {
                     selectedValue = value;
                     _saveAnswer(value);
                   });
+                  if (widget.question.id == 0) {
+                    rearrangedSample[widget.question.columns[0]] = value;
+                  } else {
+                    rearrangedSample[widget.question.columns[0]] =
+                        int.tryParse(value);
+                  }
 
-                  rearrangedSample[widget.question.columns[0]] =
-                      int.tryParse(value);
                   if (value != "") {
                     questionLeftOverList.remove(widget.question);
                   } else {
