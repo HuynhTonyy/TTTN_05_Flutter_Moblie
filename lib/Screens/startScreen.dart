@@ -34,7 +34,10 @@ class _StartScreenBodyState extends State<StartScreenBody> {
     return Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
-          colors: [const Color.fromARGB(255, 255, 255, 255), Colors.blue.shade200],
+          colors: [
+            const Color.fromARGB(255, 255, 255, 255),
+            Colors.blue.shade200
+          ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         )),
@@ -64,12 +67,15 @@ class _StartScreenBodyState extends State<StartScreenBody> {
                 ],
               ),
               Container(
-                margin: EdgeInsets.only(left:0,top: 200,right: 0,bottom: 0),
+                margin: EdgeInsets.only(left: 0, top: 200, right: 0, bottom: 0),
                 child: Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
+                  padding: const EdgeInsets.only(bottom: 10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, "/menuScreen");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MenuScreen()),
+                      );
                     },
                     child: Text(
                       'BẮT ĐẦU',
@@ -87,9 +93,9 @@ class _StartScreenBodyState extends State<StartScreenBody> {
                       // side: BorderSide(color: const Color(0xFF448AFF), width: 2),
                     ),
                   ),
-              ),
-            )
-              ],
+                ),
+              )
+            ],
           ),
         ));
   }
