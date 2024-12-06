@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -169,15 +170,15 @@ class _MyHomePageState extends State<MyHomePage> {
         'school_MS': row[1] == 'MS' ? 1 : 0,
         'sex_F': row[2] == 'F' ? 1 : 0,
         'sex_M': row[2] == 'M' ? 1 : 0,
-        'age': row[3],
+        'age': row[3] != "" ? row[3] : 0,
         'address_R': row[4] == 'M' ? 1 : 0,
         'address_U': row[4] == 'U' ? 1 : 0,
         'famsize_GT3': row[5] == 'GT3' ? 1 : 0,
         'famsize_LE3': row[5] == 'LE3' ? 1 : 0,
         'Pstatus_A': row[6] == 'A' ? 1 : 0,
         'Pstatus_T': row[6] == 'T' ? 1 : 0,
-        'Medu': row[7],
-        'Fedu': row[8],
+        'Medu': row[7] != "" ? row[7] : 0,
+        'Fedu': row[8] != "" ? row[8] : 0,
         'Mjob_at_home': row[9] == 'at_home' ? 1 : 0,
         'Mjob_health': row[9] == 'health' ? 1 : 0,
         'Mjob_other': row[9] == 'other' ? 1 : 0,
@@ -195,9 +196,9 @@ class _MyHomePageState extends State<MyHomePage> {
         'guardian_father': row[12] == 'father' ? 1 : 0,
         'guardian_mother': row[12] == 'mother' ? 1 : 0,
         'guardian_other': row[12] == 'other' ? 1 : 0,
-        'traveltime': row[13],
-        'studytime': row[14],
-        'failures': row[15],
+        'traveltime': row[13] != "" ? row[13] : 0,
+        'studytime': row[14] != "" ? row[14] : 0,
+        'failures': row[15] != "" ? row[15] : 0,
         'schoolsup_yes': row[16] == 'yes' ? 1 : 0,
         'schoolsup_no': row[16] == 'no' ? 1 : 0,
         'famsup_yes': row[17] == 'yes' ? 1 : 0,
@@ -214,15 +215,15 @@ class _MyHomePageState extends State<MyHomePage> {
         'internet_no': row[22] == 'no' ? 1 : 0,
         'romantic_yes': row[23] == 'yes' ? 1 : 0,
         'romantic_no': row[23] == 'no' ? 1 : 0,
-        'famrel': row[24],
-        'freetime': row[25],
-        'goout': row[26],
-        'Dalc': row[27],
-        'Walc': row[28],
-        'health': row[29],
-        'absences': row[30],
-        'G1': row[31],
-        'G2': row[32],
+        'famrel': row[24] != "" ? row[24] : 0,
+        'freetime': row[25] != "" ? row[25] : 0,
+        'goout': row[26] != "" ? row[26] : 0,
+        'Dalc': row[27] != "" ? row[27] : 0,
+        'Walc': row[28] != "" ? row[28] : 0,
+        'health': row[29] != "" ? row[29] : 0,
+        'absences': row[30] != "" ? row[30] : 0,
+        'G1': row[31] != "" ? row[31] : 0,
+        'G2': row[32] != "" ? row[32] : 0,
       };
       formattedCSV.add(formattedRow);
     }
