@@ -366,112 +366,116 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     return true;
   }
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black87,size: 30,),
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black87,
+              size: 30,
+            ),
             onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => MenuScreen()),
                 )),
-      title: Text(
-        widget.title,
-        style: TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
+        title: Text(
+          widget.title,
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
         ),
+        backgroundColor: Colors.blueAccent,
+        centerTitle: true,
+        elevation: 10,
       ),
-      backgroundColor: Colors.blueAccent,
-      centerTitle: true,
-       elevation: 10,
-      
-    ),
-    
-    body: Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Colors.blue.shade200,
-            Colors.blue.shade200
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.blue.shade200, Colors.blue.shade200],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // Scrollable Table Container
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 10,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Scrollable Table Container
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 10,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: ScrollableTable(data: dataOutput),
                 ),
-                child: ScrollableTable(data: dataOutput),
               ),
-            ),
-            SizedBox(height: 20),
-            // Upload and Download Buttons
-            Column(
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: () => uploadCSV(),
-                    icon: Icon(Icons.upload_file, color: Colors.white,size: 30,),
-                    label: Text(
-                      "Upload CSV",
-                      style: TextStyle(fontSize: 25, color: Colors.white),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 34, 220, 84),
-                      padding: EdgeInsets.symmetric(vertical: 20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+              SizedBox(height: 20),
+              // Upload and Download Buttons
+              Column(
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () => uploadCSV(),
+                      icon: Icon(
+                        Icons.upload_file,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                      label: Text(
+                        "Upload CSV",
+                        style: TextStyle(fontSize: 25, color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 34, 220, 84),
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 10),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: () => downloadCSV(csvData),
-                    icon: Icon(Icons.download, color: Colors.white, size: 30),
-                    label: Text(
-                      "Download CSV",
-                      style: TextStyle(fontSize: 25, color: Colors.white),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent,
-                      padding: EdgeInsets.symmetric(vertical: 20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                  SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () => downloadCSV(csvData),
+                      icon: Icon(Icons.download, color: Colors.white, size: 30),
+                      label: Text(
+                        "Download CSV",
+                        style: TextStyle(fontSize: 25, color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
-    ),
-  );
-}
+    );
+  }
 }
 
 class ScrollableTable extends StatelessWidget {
@@ -555,14 +559,16 @@ class ScrollableTable extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _buildDataCell(no, width: noWidth),
-        _buildDataCell(row['Name'] ?? '', width: nameWidth),
-        _buildDataCell(row['G3'] ?? '', width: g3Width),
+        _buildDataCell(no, 2, width: noWidth),
+        _buildDataCell(row['Name'] ?? '', 2, width: nameWidth),
+        _buildDataCell(
+            row['G3'] ?? '', int.parse(row["G3"].toString()) > 8 ? 1 : 0,
+            width: g3Width),
       ],
     );
   }
 
-  Widget _buildDataCell(dynamic value, {required double width}) {
+  Widget _buildDataCell(dynamic value, int isPass, {required double width}) {
     return SizedBox(
       width: width,
       child: Padding(
@@ -570,7 +576,11 @@ class ScrollableTable extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           decoration: BoxDecoration(
-            color: Colors.blueGrey[50],
+            color: isPass == 0
+                ? const Color.fromARGB(255, 244, 87, 87)
+                : isPass == 1
+                    ? const Color.fromARGB(255, 70, 192, 74)
+                    : Colors.blueGrey[50],
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(

@@ -4,7 +4,7 @@ from flask_cors import CORS
 import pandas as pd
 
 # Load the ML model
-model = joblib.load(open("./backend/decision_tree.joblib", "rb"))
+model = joblib.load(open("./decision_tree.joblib", "rb"))
 
 # Initialize the app
 app = Flask(__name__)
