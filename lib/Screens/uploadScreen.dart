@@ -560,14 +560,16 @@ class ScrollableTable extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _buildDataCell(no, width: noWidth),
-        _buildDataCell(row['Name'] ?? '', width: nameWidth),
-        _buildDataCell(row['G3'] ?? '', width: g3Width),
+        _buildDataCell(no, 2, width: noWidth),
+        _buildDataCell(row['Name'] ?? '', 2, width: nameWidth),
+        _buildDataCell(
+            row['G3'] ?? '', int.parse(row["G3"].toString()) > 8 ? 1 : 0,
+            width: g3Width),
       ],
     );
   }
 
-  Widget _buildDataCell(dynamic value, {required double width}) {
+  Widget _buildDataCell(dynamic value, int isPass, {required double width}) {
     return SizedBox(
       width: width,
       child: Padding(
@@ -575,7 +577,11 @@ class ScrollableTable extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           decoration: BoxDecoration(
-            color: Colors.blueGrey[50],
+            color: isPass == 0
+                ? const Color.fromARGB(255, 244, 87, 87)
+                : isPass == 1
+                    ? const Color.fromARGB(255, 70, 192, 74)
+                    : Colors.blueGrey[50],
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(
